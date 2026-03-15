@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Light mode (default) */
+  body {
+    @apply bg-white text-light-text antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Dark mode */
+  .dark body {
+    @apply bg-dark-bg text-dark-text;
+  }
+
+  ::selection {
+    @apply bg-brand-600/20 text-brand-900;
+  }
+
+  .dark ::selection {
+    @apply bg-brand-500/30 text-white;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-light-surface;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    @apply bg-dark-bg;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-light-border rounded-full;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-dark-border;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}
+
+@layer components {
+  /* Section dividers */
+  .section-divider {
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-light-border to-transparent;
+  }
+
+  .dark .section-divider {
+    @apply via-dark-border;
+  }
+
+  /* Premium card styling */
+  .card {
+    @apply relative rounded-2xl border border-light-border bg-white p-6 transition-all duration-300;
+    @apply hover:shadow-card-hover;
+  }
+
+  .dark .card {
+    @apply border-dark-border bg-dark-surface;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white;
+    @apply shadow-button transition-all duration-200;
+    @apply hover:bg-brand-700 hover:shadow-soft;
+    @apply active:scale-[0.98];
+  }
+
+  .dark .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-light-border bg-white px-6 py-3.5 text-sm font-semibold text-light-text;
+    @apply transition-all duration-200;
+    @apply hover:bg-light-surface hover:border-gray-300;
+  }
+
+  .dark .btn-secondary {
+    @apply border-dark-border bg-dark-surface text-dark-text hover:bg-dark-border hover:border-gray-500;
+  }
+
+  /* Typography */
+  .heading-xl {
+    @apply text-4xl font-extrabold tracking-tight text-light-text sm:text-5xl lg:text-6xl xl:text-7xl;
+    letter-spacing: -0.02em;
+  }
+
+  .dark .heading-xl {
+    @apply text-dark-text;
+  }
+
+  .heading-lg {
+    @apply text-3xl font-bold tracking-tight text-light-text sm:text-4xl lg:text-5xl;
+    letter-spacing: -0.02em;
+  }
+
+  .dark .heading-lg {
+    @apply text-dark-text;
+  }
+
+  .heading-md {
+    @apply text-2xl font-bold tracking-tight text-light-text sm:text-3xl;
+    letter-spacing: -0.01em;
+  }
+
+  .dark .heading-md {
+    @apply text-dark-text;
+  }
+
+  /* Label/badge styling */
+  .label-badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-light-border bg-light-surface px-4 py-1.5 text-xs font-medium text-light-text-secondary;
+  }
+
+  .dark .label-badge {
+    @apply border-dark-border bg-dark-surface text-dark-text-secondary;
+  }
+
+  /* Text colors */
+  .text-primary {
+    @apply text-light-text;
+  }
+
+  .dark .text-primary {
+    @apply text-dark-text;
+  }
+
+  .text-secondary {
+    @apply text-light-text-secondary;
+  }
+
+  .dark .text-secondary {
+    @apply text-dark-text-secondary;
+  }
+}
+
+@layer utilities {
+  /* Stagger animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
