@@ -65,6 +65,7 @@ export default function WaitlistCard({ className = "" }: WaitlistCardProps) {
     <BorderGlow
       className={["rounded-[50px]", className].filter(Boolean).join(" ")}
       backgroundColor="var(--surface-soft)"
+      borderRadius={50}
       fillOpacity={0.14}
     >
       <div className="rounded-[50px] border border-[color:var(--line)] bg-[color:var(--surface-soft)] p-5 shadow-[0_16px_40px_var(--shadow-strong)] backdrop-blur-md sm:p-6">

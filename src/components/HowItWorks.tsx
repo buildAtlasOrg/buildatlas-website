@@ -227,6 +227,7 @@ export default function HowItWorks() {
         title="See how BuildAtlas makes failed pipelines easier to understand."
         description="BuildAtlas connects to your repository, reads pipeline structure, surfaces failures as maps, and preserves the context your team needs to debug and hand work off clearly."
         className="max-w-4xl"
+        descriptionClassName="text-[color:var(--ink)]"
       />
 
       <div className="relative mt-14">
@@ -243,6 +244,7 @@ export default function HowItWorks() {
               <BorderGlow
                 className="h-full w-full rounded-[2rem]"
                 backgroundColor="var(--surface)"
+                borderRadius={32}
                 fillOpacity={0.12}
               >
                 <article className="flex h-full min-h-[31rem] flex-col rounded-[2rem] border border-[color:var(--line)] bg-[color:var(--surface)] px-6 py-6 shadow-[0_18px_36px_var(--shadow-soft)] backdrop-blur-md sm:px-7">

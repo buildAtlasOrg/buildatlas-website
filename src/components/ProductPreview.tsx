@@ -9,6 +9,7 @@ export default function ProductPreview() {
       <BorderGlow
         className="rounded-[50px]"
         backgroundColor="var(--panel)"
+        borderRadius={50}
         fillOpacity={0.16}
       >
         <div className="flex min-h-[18rem] items-center justify-center rounded-[50px] px-6 py-12 sm:min-h-[22rem] sm:px-8">

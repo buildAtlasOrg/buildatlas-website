@@ -14,6 +14,7 @@ type SectionIntroProps = {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  descriptionClassName?: string;
 };
 
 export function SectionShell({ id, className, children }: SectionShellProps) {
@@ -30,6 +31,7 @@ export function SectionIntro({
   description,
   align = "left",
   className,
+  descriptionClassName,
 }: SectionIntroProps) {
   const alignment = align === "center" ? "mx-auto text-center" : "";
 
@@ -38,7 +40,11 @@ export function SectionIntro({
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <h2 className="section-heading mt-5 max-w-[16ch]">{title}</h2>
       {description ? (
-        <p className={`section-copy mt-5 max-w-2xl ${align === "center" ? "mx-auto" : ""}`}>
+        <p
+          className={`section-copy mt-5 max-w-2xl ${align === "center" ? "mx-auto" : ""} ${
+            descriptionClassName ?? ""
+          }`}
+        >
           {description}
         </p>
       ) : null}

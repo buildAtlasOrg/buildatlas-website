@@ -53,14 +53,14 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-[color:var(--surface)] backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--line)] bg-[color:var(--surface)] backdrop-blur-md">
       <motion.div
         initial={{ opacity: 0, y: -18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="shell"
       >
-        <div className="hidden items-center justify-between gap-6 border-b border-[color:var(--line)] py-4 lg:flex">
+        <div className="hidden items-center justify-between gap-6 py-4 lg:flex">
           <div className="flex min-w-0 items-center">
             <a href="#top" aria-label="Back to top" className="block">
               <div className={desktopLogoClass}>
@@ -110,7 +110,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-3 border-b border-[color:var(--line)] py-3 lg:hidden">
+        <div className="flex items-center justify-between gap-3 py-3 lg:hidden">
           <a
             href="#top"
             aria-label="Back to top"

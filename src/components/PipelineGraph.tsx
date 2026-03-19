@@ -210,7 +210,7 @@ const edges: Edge[] = [
 
 export default function PipelineGraph() {
   return (
-    <BorderGlow className="min-h-[24rem] rounded-[50px]" {...graphTheme.borderGlow}>
+    <BorderGlow className="min-h-[24rem] rounded-[50px]" borderRadius={50} {...graphTheme.borderGlow}>
       <div
         id="graph-preview"
         className="relative min-h-[24rem] scroll-mt-16 overflow-hidden rounded-[50px] p-5 sm:scroll-mt-20 sm:p-6"

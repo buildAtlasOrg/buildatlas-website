@@ -18,6 +18,7 @@ function PageGalaxyBackdrop() {
         glowIntensity={0.2}
         saturation={0.1}
         hueShift={140}
+        starScale={0.78}
         twinkleIntensity={0.2}
         rotationSpeed={0.1}
         repulsionStrength={2}
@@ -31,7 +32,7 @@ function PageGalaxyBackdrop() {
 
 export default function Home() {
   return (
-    <main id="top" className="relative isolate pb-6">
+    <main id="top" className="relative isolate">
       <PageGalaxyBackdrop />
       <div className="relative z-10">
         <Navbar />

@@ -37,6 +37,7 @@ uniform float uSaturation;
 uniform bool uMouseRepulsion;
 uniform float uTwinkleIntensity;
 uniform float uRotationSpeed;
+uniform float uStarScale;
 uniform float uRepulsionStrength;
 uniform float uMouseActiveFactor;
 uniform float uAutoCenterRepulsion;
@@ -76,6 +77,7 @@ vec3 hsv2rgb(vec3 c) {
 }
 
 float Star(vec2 uv, float flare) {
+  uv *= 1.25 / uStarScale;
   float d = length(uv);
   float m = (0.035 * uGlowIntensity) / d;
   float rays = smoothstep(0.0, 1.0, 1.0 - abs(uv.x * uv.y * 1000.0));
@@ -98,9 +100,10 @@ vec3 StarLayer(vec2 uv) {
       vec2 offset = vec2(float(x), float(y));
       vec2 si = id + vec2(float(x), float(y));
       float seed = Hash21(si);
-      float size = pow(fract(seed * 345.32), 1.45);
+      float sizeSeed = pow(fract(seed * 345.32), 1.45);
+      float size = mix(0.62, 0.82, sizeSeed);
       float glossLocal = tri(uStarSpeed / (PERIOD * seed + 1.0));
-      float flareSize = smoothstep(0.9, 1.0, size) * glossLocal;
+      float flareSize = smoothstep(0.97, 1.0, sizeSeed) * glossLocal * 0.35;
 
       float red = smoothstep(STAR_COLOR_CUTOFF, 1.0, Hash21(si + 1.0)) + STAR_COLOR_CUTOFF;
       float blu = smoothstep(STAR_COLOR_CUTOFF, 1.0, Hash21(si + 3.0)) + STAR_COLOR_CUTOFF;
@@ -190,6 +193,7 @@ type GalaxyProps = HTMLAttributes<HTMLDivElement> & {
   mouseInteraction?: boolean;
   glowIntensity?: number;
   saturation?: number;
+  starScale?: number;
   mouseRepulsion?: boolean;
   repulsionStrength?: number;
   twinkleIntensity?: number;
@@ -209,6 +213,7 @@ export default function Galaxy({
   mouseInteraction = true,
   glowIntensity = 0.3,
   saturation = 0,
+  starScale = 1,
   mouseRepulsion = true,
   repulsionStrength = 2,
   twinkleIntensity = 0.3,
@@ -268,6 +273,7 @@ export default function Galaxy({
         uMouse: { value: new Float32Array([smoothMousePos.current.x, smoothMousePos.current.y]) },
         uGlowIntensity: { value: glowIntensity },
         uSaturation: { value: saturation },
+        uStarScale: { value: starScale },
         uMouseRepulsion: { value: mouseRepulsion },
         uTwinkleIntensity: { value: twinkleIntensity },
         uRotationSpeed: { value: rotationSpeed },
@@ -367,6 +373,7 @@ export default function Galaxy({
     rotation,
     rotationSpeed,
     saturation,
+    starScale,
     speed,
     starSpeed,
     transparent,
