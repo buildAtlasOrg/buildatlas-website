@@ -55,25 +55,17 @@ export default function ProductPreview() {
       <SectionDivider />
 
       <SectionIntro
-        eyebrow="Product"
         title="One clear view of a failed run."
         description="The key context stays in one place: the failing step, what led to it, and what it blocked."
         className="max-w-3xl"
       />
 
       <BorderGlow
-        className="mt-8"
-        edgeSensitivity={26}
-        glowColor="248 100 73"
-        backgroundColor="rgba(255, 255, 255, 0.94)"
-        borderRadius={0}
-        glowRadius={30}
-        glowIntensity={0.7}
-        coneSpread={18}
-        colors={["#3f18ff", "#6d57ff", "#9ab8ff"]}
+        className="mt-8 rounded-[50px]"
+        backgroundColor="var(--panel)"
         fillOpacity={0.16}
       >
-        <div className="relative overflow-hidden p-5 sm:p-6">
+        <div className="relative overflow-hidden rounded-[50px] p-5 sm:p-6">
           <GridPattern className="pointer-events-none absolute inset-0 opacity-20" cellSize={32} />
           <div className="relative z-10 flex flex-wrap gap-2 border-b border-[color:var(--line)] pb-4">
             {views.map((view) => {
@@ -91,7 +83,7 @@ export default function ProductPreview() {
             })}
           </div>
 
-          <div className="border-glow relative z-10 mt-6 border border-[color:var(--signal)] bg-white p-5">
+          <div className="border-glow relative z-10 mt-6 border border-[color:var(--signal)] bg-[color:var(--surface-strong)] p-5">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeView.id}
@@ -115,7 +107,7 @@ export default function ProductPreview() {
                     {activeView.content.map(([left, right]) => (
                       <div
                         key={left}
-                        className="flex items-center justify-between gap-4 bg-[rgba(245,241,234,0.55)] px-4 py-3"
+                        className="flex items-center justify-between gap-4 bg-[color:var(--surface-muted)] px-4 py-3"
                       >
                         <span className="text-sm font-medium text-[color:var(--ink)]">{left}</span>
                         <span className="text-sm text-[color:var(--ink-soft)]">{right}</span>

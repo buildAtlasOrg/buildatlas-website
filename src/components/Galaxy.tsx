@@ -321,14 +321,21 @@ export default function Galaxy({
       targetMouseActive.current = 0;
     }
 
+    function handleWindowMouseOut(event: MouseEvent) {
+      if (!event.relatedTarget) {
+        handleMouseLeave();
+      }
+    }
+
     window.addEventListener("resize", resize);
     resize();
     animationId = window.requestAnimationFrame(update);
     mountNode.appendChild(gl.canvas);
 
     if (mouseInteraction) {
-      mountNode.addEventListener("mousemove", handleMouseMove);
-      mountNode.addEventListener("mouseleave", handleMouseLeave);
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseout", handleWindowMouseOut);
+      window.addEventListener("blur", handleMouseLeave);
     }
 
     return () => {
@@ -336,8 +343,9 @@ export default function Galaxy({
       window.removeEventListener("resize", resize);
 
       if (mouseInteraction) {
-        mountNode.removeEventListener("mousemove", handleMouseMove);
-        mountNode.removeEventListener("mouseleave", handleMouseLeave);
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mouseout", handleWindowMouseOut);
+        window.removeEventListener("blur", handleMouseLeave);
       }
 
       if (mountNode.contains(gl.canvas)) {

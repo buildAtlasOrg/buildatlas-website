@@ -15,14 +15,7 @@ const nodeTypes = {
 
 const graphTheme = {
   borderGlow: {
-    edgeSensitivity: 26,
-    glowColor: "248 100 73",
-    backgroundColor: "rgba(255, 255, 255, 0.94)",
-    borderRadius: 0,
-    glowRadius: 30,
-    glowIntensity: 0.75,
-    coneSpread: 18,
-    colors: ["#3f18ff", "#6d57ff", "#9ab8ff"],
+    backgroundColor: "var(--panel)",
     fillOpacity: 0.18,
   },
   fitView: {
@@ -217,8 +210,11 @@ const edges: Edge[] = [
 
 export default function PipelineGraph() {
   return (
-    <BorderGlow className="min-h-[24rem]" {...graphTheme.borderGlow}>
-      <div id="graph-preview" className="relative min-h-[24rem] overflow-hidden p-5 sm:p-6">
+    <BorderGlow className="min-h-[24rem] rounded-[50px]" {...graphTheme.borderGlow}>
+      <div
+        id="graph-preview"
+        className="relative min-h-[24rem] overflow-hidden rounded-[50px] p-5 sm:p-6"
+      >
         <div className="relative z-10 flex items-center justify-between border-b border-[color:var(--line)] pb-4">
           <div>
             <p className="eyebrow">Pipeline view</p>
@@ -226,7 +222,7 @@ export default function PipelineGraph() {
               PR #184, auth contract update
             </p>
           </div>
-          <span className="border-glow border border-[rgb(239,68,68)] bg-[rgb(254,242,242)] px-3 py-1.5 text-sm font-medium text-[rgb(185,28,28)]">
+          <span className="border-glow border border-[color:var(--failure-strong)] bg-[color:var(--failure-soft)] px-3 py-1.5 text-sm font-medium text-[color:var(--failure-ink)]">
             Failed after 1m 23s
           </span>
         </div>
@@ -235,7 +231,7 @@ export default function PipelineGraph() {
           {runMeta.map((item) => (
             <span
               key={item.label}
-              className="border-glow inline-flex items-center gap-2 border border-[color:var(--line)] bg-white px-3 py-1.5 text-xs text-[color:var(--ink-soft)]"
+              className="border-glow inline-flex items-center gap-2 border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 py-1.5 text-xs text-[color:var(--ink-soft)]"
             >
               <span className="font-medium text-[color:var(--ink)]">{item.label}</span>
               <span>{item.value}</span>
@@ -266,7 +262,7 @@ export default function PipelineGraph() {
                   variant={BackgroundVariant.Dots}
                   gap={20}
                   size={1}
-                  color="rgba(63, 24, 255, 0.12)"
+                  color="var(--flow-dot)"
                 />
               </ReactFlow>
             </div>

@@ -4,8 +4,8 @@
 }
 
 .pill {
-  --base: var(--ink, #060606);
-  --pill-bg: var(--paper, #ffffff);
+  --base: var(--chrome, #060606);
+  --pill-bg: var(--surface-strong, #ffffff);
   --hover-text: var(--paper, #ffffff);
   --pill-text: var(--ink, #060606);
 
@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid rgb(6 6 6 / 14%);
+  border: 1px solid var(--line);
   border-radius: 9999px;
   background: var(--pill-bg);
   color: var(--pill-text);
@@ -23,7 +23,7 @@
   white-space: nowrap;
   box-shadow:
     0 0 0 1px rgb(63 24 255 / 8%),
-    0 12px 28px rgb(6 6 6 / 6%);
+    0 12px 28px var(--shadow-soft);
 }
 
 .pill:hover {
@@ -69,8 +69,8 @@
   background: var(--base);
   color: var(--hover-text);
   box-shadow:
-    0 0 0 1px rgb(6 6 6 / 12%),
-    0 10px 22px rgb(6 6 6 / 8%);
+    0 0 0 1px var(--shadow-outline),
+    0 10px 22px var(--shadow-soft);
 }
 
 .selected .circle,

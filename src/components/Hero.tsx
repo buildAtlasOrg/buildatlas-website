@@ -3,61 +3,61 @@
 import { motion } from "framer-motion";
 import PipelineGraph from "./PipelineGraph";
 import StaggeredText from "./StaggeredText";
+import WaitlistCard from "./WaitlistCard";
 
-const points = [
-  "See the failing step immediately",
-  "Keep dependencies visible",
-  "Share a cleaner handoff",
+const heroPoints = [
+  "BuildAtlas is a developer tool that helps engineering teams visualize and understand their CI/CD pipelines.",
+  "By transforming complex build workflows into clear pipeline maps, BuildAtlas enables developers to quickly identify failures, trace dependencies, and debug builds faster.",
+  "Our mission is to make CI/CD systems easier to understand, monitor, and optimize for modern software teams.",
 ];
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden pt-24 sm:pt-28">
       <div className="shell">
-        <div className="relative z-10 flex flex-col items-start pt-4">
+        <div className="relative z-10 grid gap-10 pt-4 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)] lg:items-start lg:gap-12">
           <div className="max-w-3xl">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="eyebrow"
-            >
-              BuildAtlas
-            </motion.p>
-
             <StaggeredText
               as="h1"
               text="See where your pipeline broke."
-              className="hero-heading mt-5 max-w-[11ch]"
+              className="hero-heading max-w-[11ch]"
               blur={false}
               delay={0.05}
               duration={0.45}
             />
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="section-copy mt-6 max-w-xl"
-            >
-              BuildAtlas maps the steps, dependencies, and blocked jobs in a failed
-              CI run so your team can understand the issue before digging through logs.
-            </motion.p>
-
             <motion.ul
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-7 space-y-2.5"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mt-6 max-w-2xl space-y-3"
             >
-              {points.map((point) => (
-                <li key={point} className="flex items-center gap-3 text-sm text-[color:var(--ink-soft)]">
-                  <span className="h-2.5 w-2.5 bg-[color:var(--signal)]" />
-                  {point}
+              {heroPoints.map((point) => (
+                <li
+                  key={point}
+                  className="flex items-start gap-3 text-base leading-8 text-[color:var(--ink-soft)]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.35rem] text-[1rem] leading-none text-[color:var(--signal)]"
+                  >
+                    ✦
+                  </span>
+                  <span>{point}</span>
                 </li>
               ))}
             </motion.ul>
           </div>
+
+          <motion.div
+            id="waitlist"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.16 }}
+            className="w-full max-w-md lg:justify-self-end lg:pt-2"
+          >
+            <WaitlistCard />
+          </motion.div>
         </div>
 
         <motion.div

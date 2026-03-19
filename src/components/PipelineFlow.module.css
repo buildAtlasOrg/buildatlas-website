@@ -5,7 +5,7 @@
   border: 1px solid rgb(218 220 232 / 90%);
   background:
     radial-gradient(circle at top left, rgb(63 24 255 / 9%), transparent 35%),
-    linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(249 250 252 / 96%));
+    linear-gradient(180deg, var(--flow-surface-top), var(--flow-surface-bottom));
 }
 
 .shell::after {
@@ -14,7 +14,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgb(255 255 255 / 45%) 0%, transparent 20%, transparent 80%, rgb(255 255 255 / 4) 100%);
+    linear-gradient(90deg, var(--flow-sheen-start) 0%, transparent 20%, transparent 80%, var(--flow-sheen-end) 100%);
 }
 
 .flow {

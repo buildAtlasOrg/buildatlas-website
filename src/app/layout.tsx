@@ -28,13 +28,33 @@ export const metadata: Metadata = {
   },
 };
 
+const themeScript = `
+  (() => {
+    try {
+      const root = document.documentElement;
+      const storedTheme = localStorage.getItem("theme");
+      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = storedTheme ? storedTheme === "dark" : systemPrefersDark;
+      root.classList.toggle("dark", isDark);
+      root.style.colorScheme = isDark ? "dark" : "light";
+    } catch {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(sans.variable, mono.variable, "font-sans")}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(sans.variable, mono.variable, "font-sans")}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-screen font-sans">{children}</body>
     </html>
   );

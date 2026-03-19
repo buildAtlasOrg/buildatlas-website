@@ -22,11 +22,11 @@
   border-radius: 9999px;
   background: var(--base, #060606);
   padding: 0.35rem 1rem 0.35rem 0.7rem;
-  color: white;
+  color: var(--chrome-foreground, white);
   text-decoration: none;
   box-shadow:
-    0 0 0 1px rgb(6 6 6 / 10%),
-    0 14px 28px rgb(6 6 6 / 10%);
+    0 0 0 1px var(--shadow-outline),
+    0 14px 28px var(--shadow-soft);
 }
 
 .brand:hover {
@@ -40,10 +40,9 @@
 
 .logoShell {
   display: inline-flex;
-  height: 2rem;
-  width: 2rem;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transform-origin: center;
 }
 
@@ -51,7 +50,7 @@
   font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: -0.045em;
-  color: white;
+  color: var(--chrome-foreground, white);
 }
 
 .desktopGroup {
@@ -68,8 +67,8 @@
   background: var(--base, #060606);
   padding: 3px;
   box-shadow:
-    0 0 0 1px rgb(6 6 6 / 10%),
-    0 14px 28px rgb(6 6 6 / 8%);
+    0 0 0 1px var(--shadow-outline),
+    0 14px 28px var(--shadow-soft);
 }
 
 .list {
@@ -104,8 +103,8 @@
   padding: 0;
   cursor: pointer;
   box-shadow:
-    0 0 0 1px rgb(6 6 6 / 10%),
-    0 14px 28px rgb(6 6 6 / 8%);
+    0 0 0 1px var(--shadow-outline),
+    0 14px 28px var(--shadow-soft);
 }
 
 .menuButton:focus-visible {
@@ -127,7 +126,7 @@
   height: 2px;
   width: 1rem;
   border-radius: 999px;
-  background: var(--pill-bg, #ffffff);
+  background: var(--chrome-foreground, #ffffff);
 }
 
 .menuLine:first-child {
@@ -152,8 +151,8 @@
   opacity: 0;
   visibility: hidden;
   box-shadow:
-    0 0 0 1px rgb(6 6 6 / 10%),
-    0 18px 36px rgb(6 6 6 / 12%);
+    0 0 0 1px var(--shadow-outline),
+    0 18px 36px var(--shadow-strong);
 }
 
 .mobileList {

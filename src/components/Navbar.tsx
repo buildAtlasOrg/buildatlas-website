@@ -1,15 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import BrandMark from "./BrandMark";
 import PillNav from "./PillNav";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { label: "Example graph", href: "#graph-preview" },
+  { label: "Demo", href: "#graph-preview" },
   { label: "How to use", href: "#how-it-works" },
   { label: "Product", href: "#product" },
-  { label: "Waitlist", href: "#cta" },
+  { label: "Waitlist", href: "#waitlist" },
 ];
 
 export default function Navbar() {
@@ -22,15 +22,25 @@ export default function Navbar() {
         className="shell"
       >
         <PillNav
-          logo={<BrandMark className="h-7 w-9" />}
+          logo={
+            <Image
+              src="/default.png"
+              alt=""
+              width={96}
+              height={96}
+              className="h-16 w-16 object-contain"
+              priority
+            />
+          }
           brandLabel="BuildAtlas"
-          brandHref="#"
+          brandHref={null}
+          showBrandText={false}
           items={links}
           trailingAction={
             <ThemeToggle
               size="sm"
-              baseColor="var(--ink)"
-              pillColor="var(--paper)"
+              baseColor="var(--chrome)"
+              pillColor="var(--surface-strong)"
               hoveredPillTextColor="var(--paper)"
               pillTextColor="var(--ink)"
             />
@@ -38,14 +48,14 @@ export default function Navbar() {
           mobileTrailingAction={
             <ThemeToggle
               fullWidth
-              baseColor="var(--ink)"
-              pillColor="var(--paper)"
+              baseColor="var(--chrome)"
+              pillColor="var(--surface-strong)"
               hoveredPillTextColor="var(--paper)"
               pillTextColor="var(--ink)"
             />
           }
-          baseColor="var(--ink)"
-          pillColor="var(--paper)"
+          baseColor="var(--chrome)"
+          pillColor="var(--surface-strong)"
           hoveredPillTextColor="var(--paper)"
           pillTextColor="var(--ink)"
         />

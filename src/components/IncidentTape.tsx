@@ -39,7 +39,7 @@ export default function IncidentTape({ items, className }: IncidentTapeProps) {
             The work usually starts where the build ended.
           </p>
         </div>
-        <div className="rounded-full border border-[color:var(--line)] bg-white/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--ink-soft)]">
+        <div className="rounded-full border border-[color:var(--line)] bg-[color:var(--surface-soft)] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--ink-soft)]">
           Live feed
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function IncidentTape({ items, className }: IncidentTapeProps) {
               className={`relative overflow-hidden rounded-[20px] border px-4 py-4 ${
                 isActive
                   ? "border-[color:var(--midnight)] bg-[color:var(--midnight)] text-[color:var(--paper)]"
-                  : "border-[color:var(--line)] bg-white/70 text-[color:var(--ink)]"
+                  : "border-[color:var(--line)] bg-[color:var(--surface-soft)] text-[color:var(--ink)]"
               }`}
             >
               <div className="flex items-start justify-between gap-4">

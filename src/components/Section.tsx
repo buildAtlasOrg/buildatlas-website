@@ -9,7 +9,7 @@ type SectionShellProps = {
 };
 
 type SectionIntroProps = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
@@ -35,7 +35,7 @@ export function SectionIntro({
 
   return (
     <div className={`${alignment} ${className ?? ""}`}>
-      <p className="eyebrow">{eyebrow}</p>
+      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <h2 className="section-heading mt-5 max-w-[16ch]">{title}</h2>
       {description ? (
         <p className={`section-copy mt-5 max-w-2xl ${align === "center" ? "mx-auto" : ""}`}>

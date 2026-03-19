@@ -4,9 +4,9 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import BrandMark from "./BrandMark";
 
 const socials = [
+  { icon: Mail, label: "Contact Us", href: "mailto:zaidahmad8060@gmail.com" },
   { icon: Github, label: "GitHub", href: "https://github.com/buildAtlasOrg" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/buildatlas/" },
-  { icon: Mail, label: "Email", href: "mailto:hello@buildatlas.dev" },
 ];
 
 export default function Footer() {

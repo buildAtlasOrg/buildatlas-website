@@ -38,7 +38,6 @@ export default function HowItWorks() {
       <SectionDivider />
 
       <SectionIntro
-        eyebrow="Setup rhythm"
         title="The setup is short because the real work begins after the first failure."
         description="BuildAtlas is meant to enter the team’s existing CI flow quickly, then stay useful every time an incident needs a map."
         className="max-w-3xl"
@@ -52,21 +51,14 @@ export default function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ duration: 0.5, delay: index * 0.08 }}
-            className="relative"
+            className="relative h-full"
           >
             <BorderGlow
-              className="h-full rounded-[28px]"
-              edgeSensitivity={22}
-              glowColor="248 100 73"
-              backgroundColor="rgba(255, 255, 255, 0.74)"
-              borderRadius={28}
-              glowRadius={24}
-              glowIntensity={0.45}
-              coneSpread={18}
-              colors={["#3f18ff", "#6d57ff", "#9ab8ff"]}
+              className="h-full rounded-[50px]"
+              backgroundColor="var(--surface-soft)"
               fillOpacity={0.12}
             >
-              <div className="rounded-[28px] border border-[color:var(--line)] p-5">
+              <div className="flex h-full flex-col rounded-[50px] border border-[color:var(--line)] p-5">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-[color:var(--line-strong)]">
                     {step.number}

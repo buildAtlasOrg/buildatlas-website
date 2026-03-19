@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import Galaxy from "@/components/Galaxy";
 import HowItWorks from "@/components/HowItWorks";
 import ProductPreview from "@/components/ProductPreview";
-import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
 function PageGalaxyBackdrop() {
@@ -12,7 +11,7 @@ function PageGalaxyBackdrop() {
       <Galaxy
         className="absolute inset-0 h-full w-full"
         transparent
-        mouseInteraction
+        mouseInteraction={false}
         mouseRepulsion
         density={0.4}
         glowIntensity={0.2}
@@ -38,7 +37,6 @@ export default function Home() {
         <Hero />
         <HowItWorks />
         <ProductPreview />
-        <CTA />
         <Footer />
       </div>
     </main>

@@ -4,10 +4,18 @@
 
 @layer base {
   :root {
+    color-scheme: light;
     --paper: #ffffff;
+    --page-top: #ffffff;
     --paper-strong: #f7f7fb;
     --panel: rgba(255, 255, 255, 0.94);
     --panel-strong: #ffffff;
+    --surface: rgba(255, 255, 255, 0.9);
+    --surface-strong: #ffffff;
+    --surface-soft: rgba(255, 255, 255, 0.74);
+    --surface-muted: rgba(245, 241, 234, 0.55);
+    --chrome: #060606;
+    --chrome-foreground: #ffffff;
     --ink: #060606;
     --ink-soft: #666b78;
     --line: #dadce8;
@@ -21,6 +29,25 @@
     --ember-soft: rgba(63, 24, 255, 0.11);
     --moss: #7a80a0;
     --success: #3f18ff;
+    --success-soft: rgba(34, 197, 94, 0.14);
+    --failure-soft: rgba(254, 242, 242, 0.96);
+    --failure-strong: rgba(239, 68, 68, 0.14);
+    --failure-ink: rgb(185 28 28);
+    --blocked-soft: rgba(248, 250, 252, 0.96);
+    --shadow-outline: rgba(6, 6, 6, 0.1);
+    --shadow-soft: rgba(6, 6, 6, 0.08);
+    --shadow-strong: rgba(6, 6, 6, 0.12);
+    --shadow-tile: rgba(6, 6, 6, 0.035);
+    --halo-one: rgba(63, 24, 255, 0.11);
+    --halo-two: rgba(63, 24, 255, 0.08);
+    --scroll-track: rgba(247, 247, 251, 0.9);
+    --scroll-thumb: rgba(63, 24, 255, 0.22);
+    --scroll-thumb-hover: rgba(63, 24, 255, 0.34);
+    --flow-surface-top: rgba(255, 255, 255, 0.96);
+    --flow-surface-bottom: rgba(249, 250, 252, 0.96);
+    --flow-sheen-start: rgba(255, 255, 255, 0.45);
+    --flow-sheen-end: rgba(255, 255, 255, 0.04);
+    --flow-dot: rgba(63, 24, 255, 0.12);
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -55,6 +82,82 @@
     --sidebar-ring: oklch(0.708 0 0);
   }
 
+  :root.dark {
+    color-scheme: dark;
+    --page-top: #020617;
+    --paper-strong: #050915;
+    --panel: rgba(10, 15, 30, 0.88);
+    --panel-strong: #0d1326;
+    --surface: rgba(14, 20, 38, 0.9);
+    --surface-strong: #121a31;
+    --surface-soft: rgba(18, 26, 49, 0.76);
+    --surface-muted: rgba(38, 49, 82, 0.48);
+    --chrome: #0f1528;
+    --chrome-foreground: #f7f9ff;
+    --ink: #edf2ff;
+    --ink-soft: #aab5d2;
+    --line: rgba(124, 143, 184, 0.28);
+    --line-strong: rgba(161, 176, 214, 0.56);
+    --midnight: #070c18;
+    --signal: #8a76ff;
+    --signal-strong: #a596ff;
+    --signal-soft: rgba(138, 118, 255, 0.16);
+    --signal-glow: rgba(138, 118, 255, 0.34);
+    --ember: #ff9a96;
+    --ember-soft: rgba(255, 154, 150, 0.16);
+    --moss: #8d9aca;
+    --success: #4ade80;
+    --success-soft: rgba(74, 222, 128, 0.18);
+    --failure-soft: rgba(60, 17, 29, 0.94);
+    --failure-strong: rgba(248, 113, 113, 0.18);
+    --failure-ink: #ffb4b1;
+    --blocked-soft: rgba(30, 39, 67, 0.94);
+    --shadow-outline: rgba(2, 6, 23, 0.42);
+    --shadow-soft: rgba(2, 6, 23, 0.28);
+    --shadow-strong: rgba(2, 6, 23, 0.48);
+    --shadow-tile: rgba(2, 6, 23, 0.2);
+    --halo-one: rgba(138, 118, 255, 0.16);
+    --halo-two: rgba(56, 189, 248, 0.12);
+    --scroll-track: rgba(10, 15, 30, 0.92);
+    --scroll-thumb: rgba(138, 118, 255, 0.34);
+    --scroll-thumb-hover: rgba(138, 118, 255, 0.5);
+    --flow-surface-top: rgba(12, 18, 34, 0.96);
+    --flow-surface-bottom: rgba(9, 14, 28, 0.96);
+    --flow-sheen-start: rgba(255, 255, 255, 0.08);
+    --flow-sheen-end: rgba(255, 255, 255, 0.02);
+    --flow-dot: rgba(138, 118, 255, 0.2);
+    --background: oklch(0.2 0.02 260);
+    --foreground: oklch(0.96 0.01 260);
+    --card: oklch(0.24 0.02 260);
+    --card-foreground: oklch(0.96 0.01 260);
+    --popover: oklch(0.24 0.02 260);
+    --popover-foreground: oklch(0.96 0.01 260);
+    --primary: oklch(0.96 0.01 260);
+    --primary-foreground: oklch(0.24 0.02 260);
+    --secondary: oklch(0.28 0.02 260);
+    --secondary-foreground: oklch(0.96 0.01 260);
+    --muted: oklch(0.28 0.02 260);
+    --muted-foreground: oklch(0.72 0.02 260);
+    --accent: oklch(0.28 0.02 260);
+    --accent-foreground: oklch(0.96 0.01 260);
+    --border: oklch(0.34 0.02 260);
+    --input: oklch(0.34 0.02 260);
+    --ring: oklch(0.58 0.04 260);
+    --chart-1: oklch(0.78 0.13 266);
+    --chart-2: oklch(0.74 0.16 235);
+    --chart-3: oklch(0.68 0.18 214);
+    --chart-4: oklch(0.62 0.16 187);
+    --chart-5: oklch(0.57 0.14 160);
+    --sidebar: oklch(0.22 0.02 260);
+    --sidebar-foreground: oklch(0.96 0.01 260);
+    --sidebar-primary: oklch(0.96 0.01 260);
+    --sidebar-primary-foreground: oklch(0.24 0.02 260);
+    --sidebar-accent: oklch(0.28 0.02 260);
+    --sidebar-accent-foreground: oklch(0.96 0.01 260);
+    --sidebar-border: oklch(0.34 0.02 260);
+    --sidebar-ring: oklch(0.58 0.04 260);
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -63,11 +166,14 @@
   }
 
   body {
-    background: linear-gradient(180deg, #ffffff 0%, var(--paper-strong) 100%);
+    background: linear-gradient(180deg, var(--page-top) 0%, var(--paper-strong) 100%);
     color: var(--ink);
     font-feature-settings: "ss01", "cv11", "tnum";
     min-height: 100vh;
     position: relative;
+    transition:
+      background-color 220ms ease,
+      color 220ms ease;
   }
 
   body::before {
@@ -76,8 +182,8 @@
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(circle at top, rgba(63, 24, 255, 0.11), transparent 40%),
-      radial-gradient(circle at 80% 0%, rgba(63, 24, 255, 0.08), transparent 25%);
+      radial-gradient(circle at top, var(--halo-one), transparent 40%),
+      radial-gradient(circle at 80% 0%, var(--halo-two), transparent 25%);
     opacity: 0.9;
   }
 
@@ -103,16 +209,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(247, 247, 251, 0.9);
+    background: var(--scroll-track);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(63, 24, 255, 0.22);
+    background: var(--scroll-thumb);
     border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(63, 24, 255, 0.34);
+    background: var(--scroll-thumb-hover);
   }
 }
 
@@ -130,7 +236,7 @@
     box-shadow:
       0 0 0 1px rgba(63, 24, 255, 0.08),
       0 0 28px rgba(63, 24, 255, 0.08),
-      8px 8px 0 rgba(6, 6, 6, 0.035);
+      8px 8px 0 var(--shadow-tile);
   }
 
   .panel-strong {
@@ -140,7 +246,7 @@
     box-shadow:
       0 0 0 1px rgba(63, 24, 255, 0.1),
       0 0 24px rgba(63, 24, 255, 0.09),
-      8px 8px 0 rgba(6, 6, 6, 0.05);
+      8px 8px 0 var(--shadow-soft);
   }
 
   .button-primary {
@@ -152,7 +258,7 @@
 
   .button-secondary {
     @apply inline-flex items-center justify-center gap-2 border border-[color:var(--signal)] px-5 py-3 text-sm font-semibold text-[color:var(--ink)] transition-colors duration-200 hover:border-[color:var(--signal-strong)];
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--surface-soft);
     box-shadow:
       inset 0 0 0 1px rgba(63, 24, 255, 0.05),
       0 0 18px rgba(63, 24, 255, 0.08);
@@ -175,11 +281,15 @@
   }
 
   .field-input {
-    @apply w-full border border-[color:var(--signal)] px-4 py-3.5 text-base text-[color:var(--ink)] outline-none transition-all placeholder:text-[color:var(--ink-soft)] focus:border-[color:var(--signal-strong)] focus:bg-white;
-    background: rgba(255, 255, 255, 0.75);
+    @apply w-full border border-[color:var(--signal)] px-4 py-3.5 text-base text-[color:var(--ink)] outline-none transition-all placeholder:text-[color:var(--ink-soft)] focus:border-[color:var(--signal-strong)];
+    background: var(--surface-soft);
     box-shadow:
       inset 0 0 0 1px rgba(63, 24, 255, 0.05),
       0 0 18px rgba(63, 24, 255, 0.08);
+  }
+
+  .field-input:focus {
+    background: var(--surface-strong);
   }
 
   .note-card {

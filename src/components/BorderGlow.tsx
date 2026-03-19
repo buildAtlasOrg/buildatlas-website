@@ -10,6 +10,14 @@ import {
 } from "react";
 import styles from "./BorderGlow.module.css";
 
+const BORDER_GLOW_COLORS = ["#b56df7", "#f26bb7", "#41b7f4"] as const;
+const DEFAULT_GLOW_COLOR = "276 89 70";
+const DEFAULT_EDGE_SENSITIVITY = 1;
+const DEFAULT_BORDER_RADIUS = 50;
+const DEFAULT_GLOW_RADIUS = 10;
+const DEFAULT_GLOW_INTENSITY = 3;
+const DEFAULT_CONE_SPREAD = 5;
+
 function parseHSL(hslString: string) {
   const match = hslString.match(/([\d.]+)\s*([\d.]+)%?\s*([\d.]+)%?/);
 
@@ -61,7 +69,7 @@ const GRADIENT_KEYS = [
 const COLOR_MAP = [0, 1, 2, 0, 1, 2, 1] as const;
 
 function buildGradientVars(colors: readonly string[]) {
-  const palette = colors.length > 0 ? colors : ["#c084fc", "#f472b6", "#38bdf8"];
+  const palette = colors.length > 0 ? colors : BORDER_GLOW_COLORS;
   const vars: Record<string, string> = {};
 
   for (let index = 0; index < 7; index += 1) {
@@ -145,15 +153,15 @@ type BorderGlowProps = HTMLAttributes<HTMLDivElement> & {
 export default function BorderGlow({
   children,
   className = "",
-  edgeSensitivity = 30,
-  glowColor = "40 80 80",
+  edgeSensitivity = DEFAULT_EDGE_SENSITIVITY,
+  glowColor = DEFAULT_GLOW_COLOR,
   backgroundColor = "#060010",
-  borderRadius = 28,
-  glowRadius = 40,
-  glowIntensity = 1,
-  coneSpread = 25,
+  borderRadius = DEFAULT_BORDER_RADIUS,
+  glowRadius = DEFAULT_GLOW_RADIUS,
+  glowIntensity = DEFAULT_GLOW_INTENSITY,
+  coneSpread = DEFAULT_CONE_SPREAD,
   animated = false,
-  colors = ["#c084fc", "#f472b6", "#38bdf8"],
+  colors = BORDER_GLOW_COLORS,
   fillOpacity = 0.5,
   onPointerMove,
   style,

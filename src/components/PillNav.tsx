@@ -15,7 +15,8 @@ type PillNavProps = {
   logo: ReactNode;
   logoAlt?: string;
   brandLabel?: string;
-  brandHref?: string;
+  brandHref?: string | null;
+  showBrandText?: boolean;
   items: PillNavItem[];
   trailingAction?: ReactNode;
   mobileTrailingAction?: ReactNode;
@@ -32,21 +33,22 @@ type PillNavProps = {
 export default function PillNav({
   logo,
   brandLabel = "BuildAtlas",
-  brandHref = "#",
+  brandHref = null,
+  showBrandText = true,
   items,
   trailingAction,
   mobileTrailingAction,
   activeHref,
   className = "",
   ease = "power2.easeOut",
-  baseColor = "var(--ink)",
-  pillColor = "var(--paper)",
+  baseColor = "var(--chrome)",
+  pillColor = "var(--surface-strong)",
   hoveredPillTextColor = "var(--paper)",
   pillTextColor = "var(--ink)",
   initialLoadAnimation = true,
 }: PillNavProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const brandRef = useRef<HTMLAnchorElement | null>(null);
+  const brandRef = useRef<HTMLElement | null>(null);
   const logoShellRef = useRef<HTMLSpanElement | null>(null);
   const brandTweenRef = useRef<gsap.core.Tween | null>(null);
   const navItemsRef = useRef<HTMLDivElement | null>(null);
@@ -188,18 +190,35 @@ export default function PillNav({
         aria-label="Primary"
         style={cssVars}
       >
-        <a
-          ref={brandRef}
-          href={brandHref}
-          className={styles.brand}
-          aria-label={brandLabel}
-          onMouseEnter={handleLogoEnter}
-        >
-          <span ref={logoShellRef} className={styles.logoShell} aria-hidden="true">
-            {logo}
-          </span>
-          <span className={styles.brandText}>{brandLabel}</span>
-        </a>
+        {brandHref ? (
+          <a
+            ref={(element) => {
+              brandRef.current = element;
+            }}
+            href={brandHref}
+            className={styles.brand}
+            aria-label={brandLabel}
+            onMouseEnter={handleLogoEnter}
+          >
+            <span ref={logoShellRef} className={styles.logoShell} aria-hidden="true">
+              {logo}
+            </span>
+            {showBrandText ? <span className={styles.brandText}>{brandLabel}</span> : null}
+          </a>
+        ) : (
+          <div
+            ref={(element) => {
+              brandRef.current = element;
+            }}
+            className={styles.brand}
+            aria-label={brandLabel}
+          >
+            <span ref={logoShellRef} className={styles.logoShell} aria-hidden="true">
+              {logo}
+            </span>
+            {showBrandText ? <span className={styles.brandText}>{brandLabel}</span> : null}
+          </div>
+        )}
 
         <div className={[styles.desktopGroup, styles.desktopOnly].join(" ")}>
           <div ref={navItemsRef} className={styles.items}>
