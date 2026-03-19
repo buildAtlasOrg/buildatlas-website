@@ -52,6 +52,15 @@ async function sendWaitlistNotification(email) {
   }
 }
 
+async function trySendWaitlistNotification(email) {
+  try {
+    await sendWaitlistNotification(email);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Waitlist notification error:", message);
+  }
+}
+
 export async function handler(event) {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers };
@@ -93,13 +102,13 @@ export async function handler(event) {
     });
 
     if (res.ok || res.status === 201) {
-      await sendWaitlistNotification(email);
+      await trySendWaitlistNotification(email);
       return jsonResponse(200, { message: "Success" });
     }
 
     // 409 = duplicate email (unique constraint)
     if (res.status === 409) {
-      await sendWaitlistNotification(email);
+      await trySendWaitlistNotification(email);
       return jsonResponse(200, { message: "Already on the waitlist" });
     }
 

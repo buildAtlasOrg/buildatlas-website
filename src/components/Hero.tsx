@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import PipelineGraph from "./PipelineGraph";
 import StaggeredText from "./StaggeredText";
 import WaitlistCard from "./WaitlistCard";
 
@@ -35,7 +34,7 @@ export default function Hero() {
               {heroPoints.map((point) => (
                 <li
                   key={point}
-                  className="flex items-start gap-3 text-base leading-8 text-[color:var(--ink-soft)]"
+                  className="flex items-start gap-3 text-base leading-8 text-[color:var(--ink)]"
                 >
                   <span
                     aria-hidden="true"
@@ -59,15 +58,6 @@ export default function Hero() {
             <WaitlistCard />
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-          className="relative mt-10 w-full"
-        >
-          <PipelineGraph />
-        </motion.div>
       </div>
     </section>
   );

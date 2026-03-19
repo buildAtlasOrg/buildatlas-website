@@ -16,7 +16,14 @@ const mono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.URL ??
+  process.env.DEPLOY_PRIME_URL ??
+  "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "BuildAtlas | Read your pipeline before you read the logs",
   description:
     "BuildAtlas turns CI/CD failures into maps your team can actually read, trace, and hand off.",

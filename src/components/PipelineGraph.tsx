@@ -219,7 +219,7 @@ export default function PipelineGraph() {
           <div>
             <p className="eyebrow">Pipeline view</p>
             <p className="mt-2 text-lg font-semibold tracking-[-0.03em] text-[color:var(--ink)]">
-              PR #184, auth contract update
+              Demo Repo
             </p>
           </div>
           <span className="border-glow border border-[color:var(--failure-strong)] bg-[color:var(--failure-soft)] px-3 py-1.5 text-sm font-medium text-[color:var(--failure-ink)]">
@@ -307,7 +307,7 @@ export default function PipelineGraph() {
                 </div>
               </div>
 
-              <div className="border-t border-[color:var(--line)] pt-4">
+              <div className="pt-4">
                 <div className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--signal)]">
                   Swap this preview for your live pipeline data
                   <ArrowUpRight className="h-4 w-4" />
