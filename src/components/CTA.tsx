@@ -1,16 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2 } from "lucide-react";
 import BorderGlow from "./BorderGlow";
 import PillButton from "./PillButton";
 import { SectionDivider, SectionShell } from "./Section";
-
-const Lanyard = dynamic(() => import("./Lanyard"), {
-  ssr: false,
-  loading: () => <div className="h-full w-full bg-[rgba(63,24,255,0.04)]" />,
-});
 
 export default function CTA() {
   const [email, setEmail] = useState("");
@@ -65,7 +59,7 @@ export default function CTA() {
               Something went wrong. Please try again.
             </p>
           ) : null}
-          <p className="detail-label mt-8">The signup lives on the badge</p>
+          <p className="detail-label mt-8">Preview the signup experience</p>
         </div>
 
         <BorderGlow
@@ -84,50 +78,44 @@ export default function CTA() {
             <div className="relative z-10 flex items-center justify-between border-b border-[color:var(--line)] px-5 py-4 sm:px-6">
               <div>
                 <p className="eyebrow">Preview</p>
-                <p className="mt-2 text-sm text-[color:var(--ink-soft)]">Lanyard badge signup</p>
+                <p className="mt-2 text-sm text-[color:var(--ink-soft)]">Waitlist signup</p>
               </div>
             </div>
 
-            <div className="relative flex flex-1 items-start justify-end p-4 sm:p-6 lg:p-8">
-              <Lanyard
-                className="h-full w-full min-h-[22rem] lg:min-h-[30rem]"
-                position={[0.75, 0.35, 22]}
-                gravity={[0, -40, 0]}
-              >
-                <div className="border-glow bg-[rgba(255,255,255,0.92)] px-4 py-4 shadow-[0_16px_40px_rgba(6,6,6,0.12)] sm:px-5 sm:py-5">
-                  <p className="detail-label">Waitlist</p>
-                  <p className="mt-2 text-sm text-[color:var(--ink-soft)]">
-                    Drop your email onto the badge.
-                  </p>
+            <div className="relative flex flex-1 items-center justify-center p-4 sm:p-6 lg:items-start lg:justify-end lg:px-10 lg:pt-12">
+              <div className="w-full max-w-md border border-[rgba(63,24,255,0.12)] bg-[rgba(255,255,255,0.92)] px-4 py-4 shadow-[0_16px_40px_rgba(6,6,6,0.12)] sm:px-5 sm:py-5">
+                <p className="detail-label">Waitlist</p>
+                <p className="mt-2 text-sm text-[color:var(--ink-soft)]">
+                  Drop your email below and we&apos;ll reach out when BuildAtlas opens up.
+                </p>
 
-                  {submitted ? (
-                    <div className="border-glow mt-4 border border-[color:var(--signal)] bg-[color:var(--signal-soft)] px-4 py-4">
-                      <div className="flex items-center gap-3 text-[color:var(--signal)]">
-                        <CheckCircle2 className="h-5 w-5" />
-                        <p className="text-sm font-semibold">You&apos;re on the list.</p>
-                      </div>
+                {submitted ? (
+                  <div className="border-glow mt-4 border border-[color:var(--signal)] bg-[color:var(--signal-soft)] px-4 py-4">
+                    <div className="flex items-center gap-3 text-[color:var(--signal)]">
+                      <CheckCircle2 className="h-5 w-5" />
+                      <p className="text-sm font-semibold">You&apos;re on the list.</p>
                     </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3">
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        placeholder="you@company.com"
-                        className="field-input"
-                      />
-                      <PillButton
-                        label={loading ? "Joining..." : "Join waitlist"}
-                        type="submit"
-                        disabled={loading}
-                        className="w-full"
-                      />
-                    </form>
-                  )}
-                </div>
-              </Lanyard>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3">
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      placeholder="you@company.com"
+                      className="field-input"
+                    />
+                    <PillButton
+                      label={loading ? "Joining..." : "Join waitlist"}
+                      type="submit"
+                      disabled={loading}
+                      className="w-full"
+                    />
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </BorderGlow>

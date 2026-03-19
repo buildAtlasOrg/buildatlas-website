@@ -17,6 +17,8 @@ type PillNavProps = {
   brandLabel?: string;
   brandHref?: string;
   items: PillNavItem[];
+  trailingAction?: ReactNode;
+  mobileTrailingAction?: ReactNode;
   activeHref?: string;
   className?: string;
   ease?: string;
@@ -32,6 +34,8 @@ export default function PillNav({
   brandLabel = "BuildAtlas",
   brandHref = "#",
   items,
+  trailingAction,
+  mobileTrailingAction,
   activeHref,
   className = "",
   ease = "power2.easeOut",
@@ -215,6 +219,7 @@ export default function PillNav({
                   />
                 </li>
               ))}
+              {trailingAction ? <li className={styles.item}>{trailingAction}</li> : null}
             </ul>
           </div>
         </div>
@@ -251,6 +256,7 @@ export default function PillNav({
               />
             </li>
           ))}
+          {mobileTrailingAction ? <li>{mobileTrailingAction}</li> : null}
         </ul>
       </div>
     </div>

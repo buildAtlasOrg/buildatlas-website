@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Cable, FileCode2, Radar, Send } from "lucide-react";
+import BorderGlow from "./BorderGlow";
 import { SectionDivider, SectionIntro, SectionShell } from "./Section";
 
 const steps = [
@@ -51,21 +52,36 @@ export default function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ duration: 0.5, delay: index * 0.08 }}
-            className="relative rounded-[28px] border border-[color:var(--line)] bg-white/74 p-5"
+            className="relative"
           >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-[color:var(--line-strong)]">
-                {step.number}
-              </span>
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--signal-soft)] text-[color:var(--signal)]">
-                <step.icon className="h-5 w-5" />
-              </div>
-            </div>
+            <BorderGlow
+              className="h-full rounded-[28px]"
+              edgeSensitivity={22}
+              glowColor="248 100 73"
+              backgroundColor="rgba(255, 255, 255, 0.74)"
+              borderRadius={28}
+              glowRadius={24}
+              glowIntensity={0.45}
+              coneSpread={18}
+              colors={["#3f18ff", "#6d57ff", "#9ab8ff"]}
+              fillOpacity={0.12}
+            >
+              <div className="rounded-[28px] border border-[color:var(--line)] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-[color:var(--line-strong)]">
+                    {step.number}
+                  </span>
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--signal-soft)] text-[color:var(--signal)]">
+                    <step.icon className="h-5 w-5" />
+                  </div>
+                </div>
 
-            <p className="mt-8 text-xl font-semibold tracking-[-0.03em] text-[color:var(--ink)]">
-              {step.title}
-            </p>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--ink-soft)]">{step.body}</p>
+                <p className="mt-8 text-xl font-semibold tracking-[-0.03em] text-[color:var(--ink)]">
+                  {step.title}
+                </p>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--ink-soft)]">{step.body}</p>
+              </div>
+            </BorderGlow>
 
             {index < steps.length - 1 ? (
               <div className="pointer-events-none absolute right-[-0.7rem] top-14 hidden h-px w-6 bg-[color:var(--line)] lg:block" />

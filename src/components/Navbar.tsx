@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import BrandMark from "./BrandMark";
 import PillNav from "./PillNav";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { label: "Example graph", href: "#graph-preview" },
@@ -25,6 +26,24 @@ export default function Navbar() {
           brandLabel="BuildAtlas"
           brandHref="#"
           items={links}
+          trailingAction={
+            <ThemeToggle
+              size="sm"
+              baseColor="var(--ink)"
+              pillColor="var(--paper)"
+              hoveredPillTextColor="var(--paper)"
+              pillTextColor="var(--ink)"
+            />
+          }
+          mobileTrailingAction={
+            <ThemeToggle
+              fullWidth
+              baseColor="var(--ink)"
+              pillColor="var(--paper)"
+              hoveredPillTextColor="var(--paper)"
+              pillTextColor="var(--ink)"
+            />
+          }
           baseColor="var(--ink)"
           pillColor="var(--paper)"
           hoveredPillTextColor="var(--paper)"

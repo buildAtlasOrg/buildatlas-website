@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import PillButton from "./PillButton";
 import PipelineGraph from "./PipelineGraph";
 import StaggeredText from "./StaggeredText";
 
@@ -44,24 +43,6 @@ export default function Hero() {
               BuildAtlas maps the steps, dependencies, and blocked jobs in a failed
               CI run so your team can understand the issue before digging through logs.
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="mt-7 flex flex-col gap-3 sm:flex-row"
-            >
-              <PillButton
-                label="Join the waitlist"
-                href="#cta"
-                className="w-full sm:w-auto"
-              />
-              <PillButton
-                label="See the product"
-                href="#product"
-                className="w-full sm:w-auto"
-              />
-            </motion.div>
 
             <motion.ul
               initial={{ opacity: 0, y: 16 }}
