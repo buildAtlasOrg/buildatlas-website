@@ -88,7 +88,7 @@
   bottom: 0;
   z-index: 1;
   border-radius: 9999px;
-  background: var(--base);
+  background: var(--pill-bg);
   pointer-events: none;
   will-change: transform;
 }
@@ -120,7 +120,7 @@
 .hoverLabel {
   position: absolute;
   inset: 0;
-  color: var(--hover-text);
+  color: var(--pill-text);
   opacity: 0;
   will-change: transform, opacity;
 }

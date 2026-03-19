@@ -12,7 +12,7 @@ const links = [
   { label: "Product", href: "#product" },
   { label: "Demo", href: "#graph-preview" },
   { label: "How To Use", href: "#how-it-works" },
-  { label: "Waitlist", href: "#top" },
+  { label: "Waitlist", href: "#waitlist" },
 ];
 
 function HeaderButtonGlow({ children }: { children: ReactNode }) {
@@ -36,8 +36,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const bannerSrc = isDarkMode ? "/BuildAtlas-BannerDark.png" : "/BuildAtlas-Banner.png";
-  const desktopLogoClass = "relative h-10 w-[10.5rem] sm:h-11 sm:w-[11.5rem]";
-  const mobileLogoClass = "relative h-9 w-[9.5rem]";
+  const desktopLogoClass = "relative h-[2.9rem] w-[11.25rem] sm:h-[3.1rem] sm:w-[12.25rem]";
+  const mobileLogoClass = "relative h-[2.6rem] w-[10.25rem]";
   const bannerImageClass = "object-contain object-left";
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 bg-[color:var(--surface)] backdrop-blur-md">
       <motion.div
         initial={{ opacity: 0, y: -18 }}
         animate={{ opacity: 1, y: 0 }}
@@ -62,16 +62,18 @@ export default function Navbar() {
       >
         <div className="hidden items-center justify-between gap-6 border-b border-[color:var(--line)] py-4 lg:flex">
           <div className="flex min-w-0 items-center">
-            <div className={desktopLogoClass}>
-              <Image
-                src={bannerSrc}
-                alt="BuildAtlas"
-                fill
-                sizes="224px"
-                className={bannerImageClass}
-                priority
-              />
-            </div>
+            <a href="#top" aria-label="Back to top" className="block">
+              <div className={desktopLogoClass}>
+                <Image
+                  src={bannerSrc}
+                  alt="BuildAtlas"
+                  fill
+                  sizes="224px"
+                  className={bannerImageClass}
+                  priority
+                />
+              </div>
+            </a>
           </div>
 
           <div className="flex items-center">
@@ -109,16 +111,23 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center justify-between gap-3 border-b border-[color:var(--line)] py-3 lg:hidden">
-          <div className={mobileLogoClass}>
-            <Image
-              src={bannerSrc}
-              alt="BuildAtlas"
-              fill
-              sizes="168px"
-              className={bannerImageClass}
-              priority
-            />
-          </div>
+          <a
+            href="#top"
+            aria-label="Back to top"
+            className="block"
+            onClick={() => setMenuOpen(false)}
+          >
+            <div className={mobileLogoClass}>
+              <Image
+                src={bannerSrc}
+                alt="BuildAtlas"
+                fill
+                sizes="168px"
+                className={bannerImageClass}
+                priority
+              />
+            </div>
+          </a>
 
           <div className="flex items-center gap-2">
             <HeaderButtonGlow>
@@ -136,7 +145,7 @@ export default function Navbar() {
                 type="button"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMenuOpen((open) => !open)}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[color:var(--line)] bg-[color:var(--surface-strong)] text-[color:var(--ink)] transition-colors hover:bg-[color:var(--paper)]"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[color:var(--line)] bg-[color:var(--surface-strong)] text-[color:var(--ink)]"
               >
                 {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>

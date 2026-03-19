@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "BuildAtlas | Read your pipeline before you read the logs",
     description:
       "BuildAtlas turns CI/CD failures into maps your team can actually read, trace, and hand off.",
-    images: ["/cover.png"],
+    images: ["/BuildAtlas-Full.png"],
   },
 };
 

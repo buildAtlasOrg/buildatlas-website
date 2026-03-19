@@ -12,7 +12,7 @@ const heroPoints = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-24 sm:pt-28">
+    <section className="relative pt-24 sm:pt-28">
       <div className="shell">
         <div className="relative z-10 grid gap-10 pt-4 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)] lg:items-start lg:gap-12">
           <div className="max-w-3xl">
@@ -40,7 +40,7 @@ export default function Hero() {
                     aria-hidden="true"
                     className="mt-[0.35rem] text-[1rem] leading-none text-[color:var(--signal)]"
                   >
-                    ✦
+                    {"\u2726"}
                   </span>
                   <span>{point}</span>
                 </li>

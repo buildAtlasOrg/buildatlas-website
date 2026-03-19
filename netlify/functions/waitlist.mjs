@@ -1,6 +1,7 @@
 const headers = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
@@ -116,9 +117,10 @@ export async function handler(event) {
     console.error("Supabase error:", res.status, errText);
     return jsonResponse(500, { error: "Failed to save email" });
   } catch (err) {
-    console.error("Waitlist error:", err.message);
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("Waitlist error:", message);
     return jsonResponse(500, {
-      error: err.message || "Failed to save email",
+      error: message || "Failed to save email",
     });
   }
 }

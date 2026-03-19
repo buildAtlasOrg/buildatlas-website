@@ -2,12 +2,10 @@
 
 import {
   type CSSProperties,
-  type MouseEvent as ReactMouseEvent,
   type MouseEventHandler,
   useEffect,
   useRef,
 } from "react";
-import { useMotionValue, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { cn } from "@/lib/utils";
 import { buildPillTimeline } from "./pillMotion";
@@ -54,15 +52,6 @@ export default function PillButton({
   const hoverLabelRef = useRef<HTMLSpanElement | null>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
-  const x = useMotionValue(0);
-  const rotate = useSpring(useTransform(x, [-100, 100], [-16, 16]), {
-    stiffness: 140,
-    damping: 12,
-  });
-  const translateX = useSpring(useTransform(x, [-100, 100], [-18, 18]), {
-    stiffness: 140,
-    damping: 12,
-  });
 
   useEffect(() => {
     if (selected || disabled) {
@@ -129,18 +118,6 @@ export default function PillButton({
     });
   };
 
-  const handleMouseMove = (
-    event: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-  ) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    x.set(event.clientX - bounds.left - bounds.width / 2);
-  };
-
-  const handleFocus = () => {
-    x.set(0);
-    handleEnter();
-  };
-
   const componentStyle: CSSProperties & Record<string, string> = {
     "--base": baseColor,
     "--pill-bg": pillColor,
@@ -187,8 +164,7 @@ export default function PillButton({
           style={componentStyle}
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
-          onMouseMove={handleMouseMove}
-          onFocus={handleFocus}
+          onFocus={handleEnter}
           onBlur={handleLeave}
           onClick={disabled ? (event) => event.preventDefault() : onClick}
         >
@@ -212,8 +188,7 @@ export default function PillButton({
         style={componentStyle}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
-        onMouseMove={handleMouseMove}
-        onFocus={handleFocus}
+        onFocus={handleEnter}
         onBlur={handleLeave}
         onClick={onClick}
       >
