@@ -9,32 +9,32 @@ const steps = [
   {
     number: "01",
     icon: GitBranch,
-    title: "Connect Repo TBA",
-    body: "Connect Repo TBA",
+    title: "Connect Your Repository",
+    body: "Link your GitHub, GitLab, or Bitbucket repo in one click. We support all major Git providers.",
     tileClassName:
       "bg-[linear-gradient(180deg,var(--step-one-start)_0%,var(--step-one-end)_100%)] text-white shadow-[0_18px_36px_var(--step-one-shadow)]",
   },
   {
     number: "02",
     icon: Download,
-    title: "Connect Repo TBA",
-    body: "Connect Repo TBA",
+    title: "Import Pipeline Data",
+    body: "BuildAtlas automatically reads your CI configuration files and workflow definitions.",
     tileClassName:
       "bg-[linear-gradient(180deg,var(--step-two-start)_0%,var(--step-two-end)_100%)] text-white shadow-[0_18px_36px_var(--step-two-shadow)]",
   },
   {
     number: "03",
     icon: Eye,
-    title: "Connect Repo TBA",
-    body: "Connect Repo TBA",
+    title: "View the Visual Graph",
+    body: "See your entire pipeline as an interactive, zoomable map with real-time status updates.",
     tileClassName:
       "bg-[linear-gradient(180deg,var(--step-three-start)_0%,var(--step-three-end)_100%)] text-white shadow-[0_18px_36px_var(--step-three-shadow)]",
   },
   {
     number: "04",
     icon: Bug,
-    title: "Connect Repo TBA",
-    body: "Connect Repo TBA",
+    title: "Debug Failures Faster",
+    body: "Click any failing node to jump straight to logs and errors. No more endless scrolling.",
     tileClassName:
       "bg-[linear-gradient(180deg,var(--step-four-start)_0%,var(--step-four-end)_100%)] text-white shadow-[0_18px_36px_var(--step-four-shadow)]",
   },
@@ -46,8 +46,8 @@ export default function HowItWorks() {
       <SectionDivider />
 
       <SectionIntro
-        title="Connect Repo TBA"
-        description="Connect Repo TBA"
+        title="See how BuildAtlas makes failed pipelines easier to understand."
+        description="BuildAtlas connects to your repository, reads pipeline structure, surfaces failures as maps, and preserves the context your team needs to debug and hand work off clearly."
         className="max-w-4xl"
       />
 

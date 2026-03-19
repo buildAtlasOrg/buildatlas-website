@@ -9,10 +9,10 @@ import PillButton from "./PillButton";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
+  { label: "Product", href: "#product" },
   { label: "Demo", href: "#graph-preview" },
   { label: "How To Use", href: "#how-it-works" },
-  { label: "Product", href: "#product" },
-  { label: "Waitlist", href: "#waitlist" },
+  { label: "Waitlist", href: "#top" },
 ];
 
 function HeaderButtonGlow({ children }: { children: ReactNode }) {

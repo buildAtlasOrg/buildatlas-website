@@ -213,7 +213,7 @@ export default function PipelineGraph() {
     <BorderGlow className="min-h-[24rem] rounded-[50px]" {...graphTheme.borderGlow}>
       <div
         id="graph-preview"
-        className="relative min-h-[24rem] overflow-hidden rounded-[50px] p-5 sm:p-6"
+        className="relative min-h-[24rem] scroll-mt-16 overflow-hidden rounded-[50px] p-5 sm:scroll-mt-20 sm:p-6"
       >
         <div className="relative z-10 flex items-center justify-between border-b border-[color:var(--line)] pb-4">
           <div>

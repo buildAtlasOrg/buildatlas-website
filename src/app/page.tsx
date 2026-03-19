@@ -31,7 +31,7 @@ function PageGalaxyBackdrop() {
 
 export default function Home() {
   return (
-    <main className="relative isolate pb-6">
+    <main id="top" className="relative isolate pb-6">
       <PageGalaxyBackdrop />
       <div className="relative z-10">
         <Navbar />
