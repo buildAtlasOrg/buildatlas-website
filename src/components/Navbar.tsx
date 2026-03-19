@@ -4,7 +4,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import BorderGlow from "./BorderGlow";
+import MagicButtonEffect from "./MagicButtonEffect";
 import PillButton from "./PillButton";
 import ThemeToggle from "./ThemeToggle";
 
@@ -17,18 +17,21 @@ const links = [
 
 function HeaderButtonGlow({ children }: { children: ReactNode }) {
   return (
-    <BorderGlow
+    <MagicButtonEffect
       className="rounded-full"
-      backgroundColor="var(--surface-soft)"
-      edgeSensitivity={14}
-      glowRadius={18}
-      glowIntensity={0.85}
-      coneSpread={18}
-      colors={["#3f18ff", "#6d57ff", "#9ab8ff"]}
-      fillOpacity={0.16}
+      enableStars={false}
+      enableSpotlight
+      enableBorderGlow
+      enableTilt={false}
+      enableMagnetism
+      clickEffect
+      spotlightRadius={800}
+      particleCount={12}
+      glowColor="132, 0, 255"
+      disableAnimations={false}
     >
       {children}
-    </BorderGlow>
+    </MagicButtonEffect>
   );
 }
 
