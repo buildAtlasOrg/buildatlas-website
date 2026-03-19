@@ -13,7 +13,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 9999px;
   background: var(--pill-bg);
@@ -73,54 +72,11 @@
     0 10px 22px var(--shadow-soft);
 }
 
-.selected .circle,
-.selected .hoverLabel {
-  display: none;
-}
-
-.selected .label {
-  transform: translateY(0) !important;
-}
-
-.circle {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  z-index: 1;
-  border-radius: 9999px;
-  background: var(--pill-bg);
-  pointer-events: none;
-  will-change: transform;
-}
-
-.stack {
-  position: relative;
-  z-index: 2;
-  display: inline-grid;
-  place-items: center;
-  line-height: 1;
-}
-
-.label,
-.hoverLabel {
+.label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-width: 0;
   line-height: 1;
-}
-
-.label {
-  position: relative;
-  z-index: 2;
-  will-change: transform;
-}
-
-.hoverLabel {
-  position: absolute;
-  inset: 0;
-  color: var(--pill-text);
-  opacity: 0;
-  will-change: transform, opacity;
 }

@@ -11,7 +11,7 @@ import ThemeToggle from "./ThemeToggle";
 const links = [
   { label: "Product", href: "#product" },
   { label: "Demo", href: "#graph-preview" },
-  { label: "How To Use", href: "#how-it-works" },
+  { label: "How It Works", href: "#how-it-works" },
   { label: "Waitlist", href: "#waitlist" },
 ];
 
@@ -78,7 +78,7 @@ export default function Navbar() {
 
           <div className="flex items-center">
             <nav aria-label="Primary">
-              <ul className="flex items-center gap-2">
+              <ul className="flex items-center gap-6">
                 {links.map((link) => (
                   <li key={link.href}>
                     <HeaderButtonGlow>

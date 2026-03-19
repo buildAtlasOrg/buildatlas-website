@@ -32,17 +32,8 @@ export default function Hero() {
               className="mt-6 max-w-2xl space-y-3"
             >
               {heroPoints.map((point) => (
-                <li
-                  key={point}
-                  className="flex items-start gap-3 text-base leading-8 text-[color:var(--ink)]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="mt-[0.35rem] text-[1rem] leading-none text-[color:var(--signal)]"
-                  >
-                    {"\u2726"}
-                  </span>
-                  <span>{point}</span>
+                <li key={point} className="text-base leading-8 text-[color:var(--ink)]">
+                  {point}
                 </li>
               ))}
             </motion.ul>

@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  type CSSProperties,
-  type MouseEventHandler,
-  useEffect,
-  useRef,
-} from "react";
-import { gsap } from "gsap";
+import { type CSSProperties, type MouseEventHandler } from "react";
 import { cn } from "@/lib/utils";
-import { buildPillTimeline } from "./pillMotion";
 import styles from "./PillButton.module.css";
 
 type PillButtonProps = {
@@ -34,7 +27,6 @@ export default function PillButton({
   href,
   type = "button",
   className = "",
-  ease = "power2.easeOut",
   baseColor = "var(--chrome)",
   pillColor = "var(--surface-strong)",
   hoveredPillTextColor = "var(--paper)",
@@ -46,78 +38,6 @@ export default function PillButton({
   ariaLabel,
   onClick,
 }: PillButtonProps) {
-  const pillRef = useRef<HTMLElement | null>(null);
-  const circleRef = useRef<HTMLSpanElement | null>(null);
-  const labelRef = useRef<HTMLSpanElement | null>(null);
-  const hoverLabelRef = useRef<HTMLSpanElement | null>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  const tweenRef = useRef<gsap.core.Tween | null>(null);
-
-  useEffect(() => {
-    if (selected || disabled) {
-      timelineRef.current?.kill();
-      tweenRef.current?.kill();
-      return;
-    }
-
-    const pill = pillRef.current;
-    const circle = circleRef.current;
-    const labelNode = labelRef.current;
-    const hoverLabelNode = hoverLabelRef.current;
-
-    if (!pill || !circle || !labelNode || !hoverLabelNode) {
-      return;
-    }
-
-    const layout = () => {
-      timelineRef.current?.kill();
-      tweenRef.current?.kill();
-      timelineRef.current = buildPillTimeline({
-        pill,
-        circle,
-        label: labelNode,
-        hoverLabel: hoverLabelNode,
-        ease,
-      });
-    };
-
-    layout();
-    window.addEventListener("resize", layout);
-    document.fonts?.ready.then(layout).catch(() => {});
-
-    return () => {
-      window.removeEventListener("resize", layout);
-      timelineRef.current?.kill();
-      tweenRef.current?.kill();
-    };
-  }, [disabled, ease, label, selected]);
-
-  const handleEnter = () => {
-    if (selected || disabled || !timelineRef.current) {
-      return;
-    }
-
-    tweenRef.current?.kill();
-    tweenRef.current = timelineRef.current.tweenTo(timelineRef.current.duration(), {
-      duration: 0.3,
-      ease,
-      overwrite: "auto",
-    });
-  };
-
-  const handleLeave = () => {
-    if (selected || disabled || !timelineRef.current) {
-      return;
-    }
-
-    tweenRef.current?.kill();
-    tweenRef.current = timelineRef.current.tweenTo(0, {
-      duration: 0.22,
-      ease,
-      overwrite: "auto",
-    });
-  };
-
   const componentStyle: CSSProperties & Record<string, string> = {
     "--base": baseColor,
     "--pill-bg": pillColor,
@@ -134,38 +54,17 @@ export default function PillButton({
     className,
   );
 
-  // If tooltips come back later, reintroduce the old popup markup here and
-  // wire it to `handleEnter` / `handleLeave` so the shared motion stays intact.
-  const content = (
-    <>
-      <span ref={circleRef} className={styles.circle} aria-hidden="true" />
-      <span className={styles.stack}>
-        <span ref={labelRef} className={styles.label}>
-          {label}
-        </span>
-        <span ref={hoverLabelRef} className={styles.hoverLabel} aria-hidden="true">
-          {label}
-        </span>
-      </span>
-    </>
-  );
+  const content = <span className={styles.label}>{label}</span>;
 
   if (href) {
     return (
       <span className={cn(styles.wrapper, fullWidth ? styles.wrapperFullWidth : "")}>
         <a
-          ref={(element) => {
-            pillRef.current = element;
-          }}
           href={href}
           aria-label={ariaLabel ?? label}
           aria-current={selected ? "page" : undefined}
           className={classes}
           style={componentStyle}
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-          onFocus={handleEnter}
-          onBlur={handleLeave}
           onClick={disabled ? (event) => event.preventDefault() : onClick}
         >
           {content}
@@ -177,19 +76,12 @@ export default function PillButton({
   return (
     <span className={cn(styles.wrapper, fullWidth ? styles.wrapperFullWidth : "")}>
       <button
-        ref={(element) => {
-          pillRef.current = element;
-        }}
         type={type}
         aria-label={ariaLabel ?? label}
         aria-pressed={selected || undefined}
         disabled={disabled}
         className={classes}
         style={componentStyle}
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-        onFocus={handleEnter}
-        onBlur={handleLeave}
         onClick={onClick}
       >
         {content}
