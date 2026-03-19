@@ -1,0 +1,126 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.pill {
+  --base: var(--ink, #060606);
+  --pill-bg: var(--paper, #ffffff);
+  --hover-text: var(--paper, #ffffff);
+  --pill-text: var(--ink, #060606);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgb(6 6 6 / 14%);
+  border-radius: 9999px;
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 1px rgb(63 24 255 / 8%),
+    0 12px 28px rgb(6 6 6 / 6%);
+}
+
+.pill:hover {
+  text-decoration: none;
+}
+
+.pill:focus-visible {
+  outline: 2px solid rgb(63 24 255 / 35%);
+  outline-offset: 3px;
+}
+
+.medium {
+  min-height: 2.875rem;
+  padding: 0 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.small {
+  min-height: 2.35rem;
+  padding: 0 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.wrapperFullWidth {
+  width: 100%;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.selected {
+  border-color: var(--base);
+  background: var(--base);
+  color: var(--hover-text);
+  box-shadow:
+    0 0 0 1px rgb(6 6 6 / 12%),
+    0 10px 22px rgb(6 6 6 / 8%);
+}
+
+.selected .circle,
+.selected .hoverLabel {
+  display: none;
+}
+
+.selected .label {
+  transform: translateY(0) !important;
+}
+
+.circle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 1;
+  border-radius: 9999px;
+  background: var(--base);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.stack {
+  position: relative;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  line-height: 1;
+}
+
+.label,
+.hoverLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 0;
+  line-height: 1;
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  will-change: transform;
+}
+
+.hoverLabel {
+  position: absolute;
+  inset: 0;
+  color: var(--hover-text);
+  opacity: 0;
+  will-change: transform, opacity;
+}

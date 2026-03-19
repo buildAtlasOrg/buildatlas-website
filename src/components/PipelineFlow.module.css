@@ -1,0 +1,47 @@
+.shell {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  border: 1px solid rgb(218 220 232 / 90%);
+  background:
+    radial-gradient(circle at top left, rgb(63 24 255 / 9%), transparent 35%),
+    linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(249 250 252 / 96%));
+}
+
+.shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 45%) 0%, transparent 20%, transparent 80%, rgb(255 255 255 / 4) 100%);
+}
+
+.flow {
+  height: 100%;
+  min-height: 22rem;
+  width: 100%;
+}
+
+.flow :global(.react-flow__renderer) {
+  background: transparent;
+}
+
+.flow :global(.react-flow__pane) {
+  cursor: default;
+}
+
+.flow :global(.react-flow__node) {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.flow :global(.react-flow__edge-path) {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flow :global(.react-flow__attribution) {
+  display: none;
+}

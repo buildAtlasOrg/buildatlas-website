@@ -1,169 +1,326 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { CheckCircle2, XCircle, Loader2, Clock, GitBranch } from "lucide-react";
+import { Background, BackgroundVariant, MarkerType, ReactFlow, type Edge } from "@xyflow/react";
+import { ArrowUpRight, GitBranch, PackageOpen, ShieldAlert, TimerReset } from "lucide-react";
+import BorderGlow from "./BorderGlow";
+import PipelineFlowNode, {
+  type PipelineFlowNodeData,
+  type PipelineFlowNodeType,
+} from "./PipelineFlowNode";
+import flowStyles from "./PipelineFlow.module.css";
 
-type StageStatus = "success" | "fail" | "running" | "pending";
+const nodeTypes = {
+  pipelineJob: PipelineFlowNode,
+};
 
-interface Stage {
-  name: string;
-  status: StageStatus;
-  duration: string;
-}
+const graphTheme = {
+  borderGlow: {
+    edgeSensitivity: 26,
+    glowColor: "248 100 73",
+    backgroundColor: "rgba(255, 255, 255, 0.94)",
+    borderRadius: 0,
+    glowRadius: 30,
+    glowIntensity: 0.75,
+    coneSpread: 18,
+    colors: ["#3f18ff", "#6d57ff", "#9ab8ff"],
+    fillOpacity: 0.18,
+  },
+  fitView: {
+    padding: 0.08,
+    minZoom: 0.76,
+    maxZoom: 1,
+  },
+} as const;
 
-const stages: Stage[] = [
-  { name: "Install Dependencies", status: "success", duration: "12s" },
-  { name: "Lint & Format", status: "success", duration: "8s" },
-  { name: "Run Tests", status: "fail", duration: "43s" },
-  { name: "Build", status: "pending", duration: "—" },
-  { name: "Deploy to Prod", status: "pending", duration: "—" },
+const runMeta = [
+  { label: "Branch", value: "main" },
+  { label: "Commit", value: "a18c4b2" },
+  { label: "Trigger", value: "pull_request" },
+  { label: "Jobs", value: "9 total, 1 failed, 4 blocked" },
+] as const;
+
+const nodes: PipelineFlowNodeType[] = [
+  {
+    id: "install",
+    type: "pipelineJob",
+    position: { x: 24, y: 124 },
+    data: {
+      stage: "Setup",
+      label: "Install Dependencies",
+      duration: "12s",
+      detail: "npm ci, cache restored",
+      status: "success",
+      width: 220,
+    },
+  },
+  {
+    id: "lint",
+    type: "pipelineJob",
+    position: { x: 300, y: 20 },
+    data: {
+      stage: "Checks",
+      label: "Lint",
+      duration: "8s",
+      detail: "eslint",
+      status: "success",
+      width: 132,
+    },
+  },
+  {
+    id: "unit",
+    type: "pipelineJob",
+    position: { x: 300, y: 124 },
+    data: {
+      stage: "Checks",
+      label: "Unit Tests",
+      duration: "45s",
+      detail: "214 passing",
+      status: "success",
+      width: 154,
+    },
+  },
+  {
+    id: "types",
+    type: "pipelineJob",
+    position: { x: 300, y: 228 },
+    data: {
+      stage: "Checks",
+      label: "Typecheck",
+      duration: "11s",
+      detail: "tsc --noEmit",
+      status: "success",
+      width: 156,
+    },
+  },
+  {
+    id: "integration",
+    type: "pipelineJob",
+    position: { x: 594, y: 124 },
+    data: {
+      stage: "Verify",
+      label: "Integration Tests",
+      duration: "1m 23s",
+      detail: "auth-contract.spec.ts failed",
+      status: "failed",
+      width: 238,
+    },
+  },
+  {
+    id: "build-web",
+    type: "pipelineJob",
+    position: { x: 930, y: 44 },
+    data: {
+      stage: "Build",
+      label: "Build Web Artifact",
+      duration: "blocked",
+      detail: "waiting on test gate",
+      status: "blocked",
+      width: 186,
+    },
+  },
+  {
+    id: "build-worker",
+    type: "pipelineJob",
+    position: { x: 930, y: 168 },
+    data: {
+      stage: "Build",
+      label: "Build Worker Image",
+      duration: "blocked",
+      detail: "docker publish paused",
+      status: "blocked",
+      width: 194,
+    },
+  },
+  {
+    id: "deploy-staging",
+    type: "pipelineJob",
+    position: { x: 1218, y: 76 },
+    data: {
+      stage: "Deploy",
+      label: "Deploy Staging",
+      duration: "queued",
+      detail: "awaiting both artifacts",
+      status: "blocked",
+      width: 184,
+    },
+  },
+  {
+    id: "deploy-production",
+    type: "pipelineJob",
+    position: { x: 1218, y: 198 },
+    data: {
+      stage: "Release",
+      label: "Deploy Production",
+      duration: "blocked",
+      detail: "approval gate locked",
+      status: "blocked",
+      width: 196,
+    },
+  },
 ];
 
-const statusConfig = {
-  success: {
-    bg: "bg-status-success/10",
-    border: "border-status-success/30",
-    text: "text-status-success",
-    dot: "bg-status-success",
-    icon: CheckCircle2,
+const edgeStyles = {
+  default: {
+    stroke: "rgba(148, 163, 184, 0.45)",
+    strokeWidth: 2,
   },
-  fail: {
-    bg: "bg-status-failure/10",
-    border: "border-status-failure/50 ring-2 ring-status-failure/20",
-    text: "text-status-failure",
-    dot: "bg-status-failure",
-    icon: XCircle,
+  failed: {
+    stroke: "rgba(239, 68, 68, 0.38)",
+    strokeWidth: 2,
+    strokeDasharray: "7 5",
   },
-  running: {
-    bg: "bg-status-running/10",
-    border: "border-status-running/30",
-    text: "text-status-running",
-    dot: "bg-status-running animate-pulse",
-    icon: Loader2,
+  blocked: {
+    stroke: "rgba(100, 116, 139, 0.42)",
+    strokeWidth: 2,
+    strokeDasharray: "6 4",
   },
-  pending: {
-    bg: "bg-light-surface dark:bg-dark-surface",
-    border: "border-light-border dark:border-dark-border",
-    text: "text-status-pending",
-    dot: "bg-status-pending",
-    icon: Clock,
-  },
-};
+} as const;
+
+function createEdge(
+  source: string,
+  target: string,
+  tone: keyof typeof edgeStyles = "default",
+): Edge {
+  const style = edgeStyles[tone];
+
+  return {
+    id: `${source}-${target}`,
+    source,
+    target,
+    type: "smoothstep",
+    animated: tone === "failed",
+    markerEnd: {
+      type: MarkerType.ArrowClosed,
+      width: 18,
+      height: 18,
+      color: style.stroke,
+    },
+    style,
+  };
+}
+
+const edges: Edge[] = [
+  createEdge("install", "lint"),
+  createEdge("install", "unit"),
+  createEdge("install", "types"),
+  createEdge("lint", "integration"),
+  createEdge("unit", "integration"),
+  createEdge("types", "integration"),
+  createEdge("integration", "build-web", "failed"),
+  createEdge("integration", "build-worker", "failed"),
+  createEdge("build-web", "deploy-staging", "blocked"),
+  createEdge("build-worker", "deploy-staging", "blocked"),
+  createEdge("build-web", "deploy-production", "blocked"),
+  createEdge("build-worker", "deploy-production", "blocked"),
+  createEdge("deploy-staging", "deploy-production", "blocked"),
+];
 
 export default function PipelineGraph() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="relative rounded-2xl border border-light-border bg-white p-6 shadow-card dark:border-dark-border dark:bg-dark-surface sm:p-8"
-    >
-      {/* Window chrome */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="h-3 w-3 rounded-full bg-status-failure/80" />
-          <div className="h-3 w-3 rounded-full bg-status-running/80" />
-          <div className="h-3 w-3 rounded-full bg-status-success/80" />
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
-            <GitBranch className="h-3.5 w-3.5 text-light-text-secondary dark:text-dark-text-secondary" />
-            <span className="font-mono text-xs text-light-text-secondary dark:text-dark-text-secondary">main</span>
+    <BorderGlow className="min-h-[24rem]" {...graphTheme.borderGlow}>
+      <div id="graph-preview" className="relative min-h-[24rem] overflow-hidden p-5 sm:p-6">
+        <div className="relative z-10 flex items-center justify-between border-b border-[color:var(--line)] pb-4">
+          <div>
+            <p className="eyebrow">Pipeline view</p>
+            <p className="mt-2 text-lg font-semibold tracking-[-0.03em] text-[color:var(--ink)]">
+              PR #184, auth contract update
+            </p>
           </div>
-          <div className="h-4 w-px bg-light-border dark:bg-dark-border" />
-          <span className="font-mono text-xs text-light-text-secondary dark:text-dark-text-secondary">
-            deploy-pipeline.yml
-          </span>
-          <span className="rounded bg-status-failure/10 px-1.5 py-0.5 font-mono text-[10px] font-medium text-status-failure">
-            FAILED
+          <span className="border-glow border border-[rgb(239,68,68)] bg-[rgb(254,242,242)] px-3 py-1.5 text-sm font-medium text-[rgb(185,28,28)]">
+            Failed after 1m 23s
           </span>
         </div>
-      </div>
 
-      {/* Pipeline stages */}
-      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-        {stages.map((stage, i) => {
-          const config = statusConfig[stage.status];
-          const Icon = config.icon;
-          
-          return (
-            <motion.div
-              key={stage.name}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.08 }}
-              className="flex items-center gap-3 sm:gap-4"
+        <div className="relative z-10 mt-4 flex flex-wrap gap-2 border-b border-[color:var(--line)] pb-4">
+          {runMeta.map((item) => (
+            <span
+              key={item.label}
+              className="border-glow inline-flex items-center gap-2 border border-[color:var(--line)] bg-white px-3 py-1.5 text-xs text-[color:var(--ink-soft)]"
             >
-              <div
-                className={`group relative rounded-xl border px-4 py-3 transition-all duration-200 hover:scale-[1.02] hover:shadow-soft cursor-pointer ${config.bg} ${config.border}`}
+              <span className="font-medium text-[color:var(--ink)]">{item.label}</span>
+              <span>{item.value}</span>
+            </span>
+          ))}
+        </div>
+
+        <div className="relative z-10 mt-5 grid gap-5 lg:grid-cols-[1.55fr_0.45fr]">
+          <div className={flowStyles.shell}>
+            <div className={flowStyles.flow}>
+              <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                nodeTypes={nodeTypes}
+                fitView
+                fitViewOptions={graphTheme.fitView}
+                nodesDraggable={false}
+                nodesConnectable={false}
+                elementsSelectable={false}
+                panOnDrag={false}
+                zoomOnScroll={false}
+                zoomOnPinch={false}
+                zoomOnDoubleClick={false}
+                preventScrolling={false}
+                proOptions={{ hideAttribution: true }}
               >
-                {/* Status indicator dot */}
-                <div className={`absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full ${config.dot}`} />
-                
-                {/* Content */}
-                <div className="flex items-center gap-2">
-                  <Icon className={`h-4 w-4 ${config.text} ${stage.status === "running" ? "animate-spin" : ""}`} />
-                  <div className="text-left">
-                    <p className={`text-xs font-semibold sm:text-sm ${config.text}`}>
-                      {stage.name}
-                    </p>
-                    <p className="mt-0.5 font-mono text-[10px] text-light-text-secondary dark:text-dark-text-secondary">
-                      {stage.duration}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Error message for failed stage */}
-                {stage.status === "fail" && (
-                  <div className="mt-2 rounded bg-status-failure/10 px-2 py-1">
-                    <p className="font-mono text-[10px] text-status-failure">
-                      Error: assertion failed in auth.test.ts:42
-                    </p>
-                  </div>
-                )}
+                <Background
+                  variant={BackgroundVariant.Dots}
+                  gap={20}
+                  size={1}
+                  color="rgba(63, 24, 255, 0.12)"
+                />
+              </ReactFlow>
+            </div>
+          </div>
+
+          <div className="border-t border-[color:var(--line)] pt-5 lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0">
+            <div className="space-y-4">
+              <div>
+                <p className="detail-label">Failure reason</p>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--ink-soft)]">
+                  Integration tests stopped on the auth contract suite after a fixture
+                  mismatch. Downstream build and deploy jobs inherited the block
+                  automatically.
+                </p>
               </div>
 
-              {/* Connector arrow */}
-              {i < stages.length - 1 && (
-                <motion.svg
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 + i * 0.08 }}
-                  width="32"
-                  height="12"
-                  viewBox="0 0 32 12"
-                  className="shrink-0 text-light-border dark:text-dark-border"
-                >
-                  <line
-                    x1="0"
-                    y1="6"
-                    x2="24"
-                    y2="6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeDasharray={stage.status === "pending" ? "4 2" : "none"}
-                  />
-                  <polygon points="24,1 32,6 24,11" fill="currentColor" />
-                </motion.svg>
-              )}
-            </motion.div>
-          );
-        })}
-      </div>
+              <div className="border-t border-[color:var(--line)] pt-4">
+                <div className="flex items-center gap-3 text-sm text-[color:var(--ink)]">
+                  <GitBranch className="h-4 w-4 text-[color:var(--signal)]" />
+                  Parallel checks fan out from setup and converge on the failing gate
+                </div>
+              </div>
 
-      {/* Legend */}
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-4 border-t border-light-border pt-6 text-xs text-light-text-secondary dark:border-dark-border dark:text-dark-text-secondary sm:gap-6">
-        {[
-          { status: "success", label: "Passed" },
-          { status: "fail", label: "Failed" },
-          { status: "running", label: "Running" },
-          { status: "pending", label: "Pending" },
-        ].map(({ status, label }) => (
-          <span key={status} className="flex items-center gap-1.5">
-            <span className={`h-2 w-2 rounded-full ${statusConfig[status as StageStatus].dot}`} />
-            {label}
-          </span>
-        ))}
+              <div className="border-t border-[color:var(--line)] pt-4">
+                <div className="flex items-center gap-3 text-sm text-[color:var(--ink)]">
+                  <TimerReset className="h-4 w-4 text-[rgb(22,163,74)]" />
+                  Each node keeps duration, stage, and the most useful execution detail
+                </div>
+              </div>
+
+              <div className="border-t border-[color:var(--line)] pt-4">
+                <div className="flex items-center gap-3 text-sm text-[color:var(--ink)]">
+                  <PackageOpen className="h-4 w-4 text-[color:var(--moss)]" />
+                  Artifact builds and deploy environments stay visible even when blocked
+                </div>
+              </div>
+
+              <div className="border-t border-[color:var(--line)] pt-4">
+                <div className="flex items-center gap-3 text-sm text-[color:var(--ink)]">
+                  <ShieldAlert className="h-4 w-4 text-[rgb(239,68,68)]" />
+                  Approval and release gates stay attached to the upstream dependency path
+                </div>
+              </div>
+
+              <div className="border-t border-[color:var(--line)] pt-4">
+                <div className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--signal)]">
+                  Swap this preview for your live pipeline data
+                  <ArrowUpRight className="h-4 w-4" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </BorderGlow>
   );
 }
