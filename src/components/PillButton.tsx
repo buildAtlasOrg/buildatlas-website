@@ -12,6 +12,7 @@ type PillButtonProps = {
   ease?: string;
   baseColor?: string;
   pillColor?: string;
+  hoveredPillColor?: string;
   hoveredPillTextColor?: string;
   pillTextColor?: string;
   size?: "sm" | "md";
@@ -29,6 +30,7 @@ export default function PillButton({
   className = "",
   baseColor = "var(--chrome)",
   pillColor = "var(--surface-strong)",
+  hoveredPillColor = "var(--base)",
   hoveredPillTextColor = "var(--paper)",
   pillTextColor = "var(--ink)",
   size = "md",
@@ -41,6 +43,7 @@ export default function PillButton({
   const componentStyle: CSSProperties & Record<string, string> = {
     "--base": baseColor,
     "--pill-bg": pillColor,
+    "--pill-hover-bg": hoveredPillColor,
     "--hover-text": hoveredPillTextColor,
     "--pill-text": pillTextColor,
   };

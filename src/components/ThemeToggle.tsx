@@ -8,6 +8,7 @@ type ThemeToggleProps = {
   size?: "sm" | "md";
   baseColor?: string;
   pillColor?: string;
+  hoveredPillColor?: string;
   hoveredPillTextColor?: string;
   pillTextColor?: string;
 };
@@ -17,6 +18,7 @@ export default function ThemeToggle({
   size = "sm",
   baseColor = "var(--chrome)",
   pillColor = "var(--surface-strong)",
+  hoveredPillColor = "var(--base)",
   hoveredPillTextColor = "var(--paper)",
   pillTextColor = "var(--ink)",
 }: ThemeToggleProps) {
@@ -75,6 +77,7 @@ export default function ThemeToggle({
       fullWidth={fullWidth}
       baseColor={baseColor}
       pillColor={pillColor}
+      hoveredPillColor={hoveredPillColor}
       hoveredPillTextColor={hoveredPillTextColor}
       pillTextColor={pillTextColor}
     />

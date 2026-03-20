@@ -88,6 +88,7 @@ export default function Navbar() {
                         size="sm"
                         baseColor="var(--chrome)"
                         pillColor="var(--surface-strong)"
+                        hoveredPillColor="var(--chrome)"
                         hoveredPillTextColor="var(--paper)"
                         pillTextColor="var(--ink)"
                       />
@@ -100,6 +101,7 @@ export default function Navbar() {
                       size="sm"
                       baseColor="var(--chrome)"
                       pillColor="var(--surface-strong)"
+                      hoveredPillColor="var(--chrome)"
                       hoveredPillTextColor="var(--paper)"
                       pillTextColor="var(--ink)"
                     />
@@ -135,6 +137,7 @@ export default function Navbar() {
                 size="sm"
                 baseColor="var(--chrome)"
                 pillColor="var(--surface-strong)"
+                hoveredPillColor="var(--chrome)"
                 hoveredPillTextColor="var(--paper)"
                 pillTextColor="var(--ink)"
               />
@@ -145,7 +148,7 @@ export default function Navbar() {
                 type="button"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMenuOpen((open) => !open)}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[color:var(--line)] bg-[color:var(--surface-strong)] text-[color:var(--ink)]"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[color:var(--line)] bg-[color:var(--surface-strong)] text-[color:var(--ink)] transition-colors duration-180 hover:border-[color:var(--chrome)] hover:bg-[color:var(--chrome)] hover:text-[color:var(--paper)]"
               >
                 {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
@@ -177,6 +180,7 @@ export default function Navbar() {
                           fullWidth
                           baseColor="var(--chrome)"
                           pillColor="var(--surface-strong)"
+                          hoveredPillColor="var(--chrome)"
                           hoveredPillTextColor="var(--paper)"
                           pillTextColor="var(--ink)"
                           onClick={() => setMenuOpen(false)}

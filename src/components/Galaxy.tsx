@@ -34,6 +34,8 @@ uniform float uSpeed;
 uniform vec2 uMouse;
 uniform float uGlowIntensity;
 uniform float uSaturation;
+uniform vec3 uTintColor;
+uniform float uTintStrength;
 uniform bool uMouseRepulsion;
 uniform float uTwinkleIntensity;
 uniform float uRotationSpeed;
@@ -115,6 +117,7 @@ vec3 StarLayer(vec2 uv) {
       float sat = length(base - vec3(dot(base, vec3(0.299, 0.587, 0.114)))) * uSaturation;
       float val = max(max(base.r, base.g), base.b);
       base = hsv2rgb(vec3(hue, sat, val));
+      base = mix(base, uTintColor, clamp(uTintStrength, 0.0, 1.0));
 
       vec2 pad = vec2(
         tris(seed * 34.0 + uTime * uSpeed / 10.0),
@@ -193,6 +196,8 @@ type GalaxyProps = HTMLAttributes<HTMLDivElement> & {
   mouseInteraction?: boolean;
   glowIntensity?: number;
   saturation?: number;
+  tintColor?: [number, number, number];
+  tintStrength?: number;
   starScale?: number;
   mouseRepulsion?: boolean;
   repulsionStrength?: number;
@@ -213,6 +218,8 @@ export default function Galaxy({
   mouseInteraction = true,
   glowIntensity = 0.3,
   saturation = 0,
+  tintColor = [1, 1, 1],
+  tintStrength = 0,
   starScale = 1,
   mouseRepulsion = true,
   repulsionStrength = 2,
@@ -273,6 +280,8 @@ export default function Galaxy({
         uMouse: { value: new Float32Array([smoothMousePos.current.x, smoothMousePos.current.y]) },
         uGlowIntensity: { value: glowIntensity },
         uSaturation: { value: saturation },
+        uTintColor: { value: new Float32Array(tintColor) },
+        uTintStrength: { value: tintStrength },
         uStarScale: { value: starScale },
         uMouseRepulsion: { value: mouseRepulsion },
         uTwinkleIntensity: { value: twinkleIntensity },
@@ -376,6 +385,8 @@ export default function Galaxy({
     starScale,
     speed,
     starSpeed,
+    tintColor,
+    tintStrength,
     transparent,
     twinkleIntensity,
   ]);
