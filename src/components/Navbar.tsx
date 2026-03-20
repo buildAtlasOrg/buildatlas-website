@@ -15,6 +15,12 @@ const links = [
   { label: "Waitlist", href: "#waitlist" },
 ];
 
+const desktopActionItemClass =
+  "relative ml-5 pl-5 before:absolute before:left-0 before:top-1/2 before:h-5 before:w-px before:-translate-y-1/2 before:bg-[color:var(--line)] first:ml-0 first:pl-0 first:before:hidden";
+
+const desktopActionClass =
+  "inline-flex items-center rounded-md px-2 py-2 text-[0.97rem] font-medium tracking-[-0.01em] text-[color:var(--ink)] transition-colors duration-180 hover:bg-[color:var(--chrome)] hover:text-[color:var(--paper)]";
+
 function HeaderButtonGlow({ children }: { children: ReactNode }) {
   return (
     <BorderGlow
@@ -52,6 +58,14 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  function toggleTheme() {
+    const nextDark = !isDarkMode;
+    setIsDarkMode(nextDark);
+    document.documentElement.classList.toggle("dark", nextDark);
+    document.documentElement.style.colorScheme = nextDark ? "dark" : "light";
+    localStorage.setItem("theme", nextDark ? "dark" : "light");
+  }
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--line)] bg-[color:var(--surface)] backdrop-blur-md">
       <motion.div
@@ -78,34 +92,18 @@ export default function Navbar() {
 
           <div className="flex items-center">
             <nav aria-label="Primary">
-              <ul className="flex items-center gap-6">
+              <ul className="flex items-center">
                 {links.map((link) => (
-                  <li key={link.href}>
-                    <HeaderButtonGlow>
-                      <PillButton
-                        label={link.label}
-                        href={link.href}
-                        size="sm"
-                        baseColor="var(--chrome)"
-                        pillColor="var(--surface-strong)"
-                        hoveredPillColor="var(--chrome)"
-                        hoveredPillTextColor="var(--paper)"
-                        pillTextColor="var(--ink)"
-                      />
-                    </HeaderButtonGlow>
+                  <li key={link.href} className={desktopActionItemClass}>
+                    <a href={link.href} className={desktopActionClass}>
+                      {link.label}
+                    </a>
                   </li>
                 ))}
-                <li>
-                  <HeaderButtonGlow>
-                    <ThemeToggle
-                      size="sm"
-                      baseColor="var(--chrome)"
-                      pillColor="var(--surface-strong)"
-                      hoveredPillColor="var(--chrome)"
-                      hoveredPillTextColor="var(--paper)"
-                      pillTextColor="var(--ink)"
-                    />
-                  </HeaderButtonGlow>
+                <li className={desktopActionItemClass}>
+                  <button type="button" onClick={toggleTheme} className={desktopActionClass}>
+                    {isDarkMode ? "Light mode" : "Dark mode"}
+                  </button>
                 </li>
               </ul>
             </nav>
