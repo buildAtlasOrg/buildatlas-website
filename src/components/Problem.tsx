@@ -1,24 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlertCircle, GitBranch, MessageSquareText } from "lucide-react";
 import { SectionDivider, SectionIntro, SectionShell } from "./Section";
 
-const items = [
+const pains = [
   {
-    icon: AlertCircle,
-    title: "Find the failing step faster",
-    body: "The broken part of the run should be obvious without reading hundreds of lines first.",
+    number: "01",
+    title: "Hours lost to log hunting",
+    body: "Engineers spend 40+ minutes on average per failed CI run — most of it scrolling raw log output to find the one line that actually matters.",
   },
   {
-    icon: GitBranch,
-    title: "Keep the dependency path visible",
-    body: "It is easier to debug when you can see what led into the failure and what it blocked next.",
+    number: "02",
+    title: "Cascade failures go unnoticed",
+    body: "A single broken job silently blocks three downstream jobs. The deploy stalls. The team waits. Nobody knows why until someone digs through the wreckage.",
   },
   {
-    icon: MessageSquareText,
-    title: "Make handoff easier",
-    body: "The next engineer should inherit a readable summary, not a screenshot and a guess.",
+    number: "03",
+    title: "No context for handoffs",
+    body: "When the build owner is unavailable, the next person starts from scratch — no shared map of what broke, what was blocked, or where to look.",
   },
 ];
 
@@ -28,32 +27,31 @@ export default function Problem() {
       <SectionDivider />
 
       <SectionIntro
-        eyebrow="Why it helps"
-        title="Less time reconstructing the run."
-        description="Most teams spend the first part of a CI failure figuring out what happened. BuildAtlas shortens that step."
+        eyebrow="The problem"
+        title="CI/CD failures cost more than you think."
+        description="Modern pipelines have dozens of jobs and thousands of log lines. The tools to understand them haven't kept up."
         className="max-w-3xl"
       />
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
-        {items.map((item, index) => (
+      <div className="mt-12 grid gap-5 md:grid-cols-3">
+        {pains.map((item, i) => (
           <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 14 }}
+            key={item.number}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-15% 0px" }}
-            transition={{ duration: 0.4, delay: index * 0.06 }}
-            className="note-card"
+            viewport={{ once: true, margin: "-10% 0px" }}
+            transition={{ duration: 0.45, delay: i * 0.09 }}
+            className="rounded-[1.75rem] border border-[color:var(--line)] bg-[color:var(--surface)] px-7 py-7 backdrop-blur-md"
           >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-[color:var(--line-strong)]">
-                0{index + 1}
-              </span>
-              <item.icon className="h-4 w-4 text-[color:var(--signal)]" />
-            </div>
-            <p className="mt-3 text-lg font-semibold tracking-[-0.03em] text-[color:var(--ink)]">
-              {item.title}
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[color:var(--signal)]">
+              {item.number}
             </p>
-            <p className="mt-2 text-sm leading-7 text-[color:var(--ink-soft)]">{item.body}</p>
+            <h3 className="mt-4 text-[1.15rem] font-semibold tracking-[-0.035em] text-[color:var(--ink)]">
+              {item.title}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-[color:var(--ink-soft)]">
+              {item.body}
+            </p>
           </motion.div>
         ))}
       </div>

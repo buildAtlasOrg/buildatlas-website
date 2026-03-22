@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -61,24 +58,11 @@ function FooterLink({ label, href }: FooterLinkProps) {
 }
 
 export default function Footer() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const bannerSrc = isDarkMode ? "/BuildAtlas-BannerDark.png" : "/BuildAtlas-Banner.png";
   const currentYear = new Date().getFullYear();
   const logoClass = "relative h-[2.9rem] w-[11.25rem] sm:h-[3.1rem] sm:w-[12.25rem]";
   const footerBlurb =
-    "BuildAtlas helps engineering teams visualize CI/CD pipelines, trace failures faster, and make complex build systems easier to understand and optimize.";
+    "BuildAtlas helps engineering teams visualize GitHub Actions pipelines, trace failures faster, and debug complex builds in seconds.";
 
-  useEffect(() => {
-    const root = document.documentElement;
-    const syncTheme = () => setIsDarkMode(root.classList.contains("dark"));
-
-    syncTheme();
-
-    const observer = new MutationObserver(syncTheme);
-    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <footer className="mt-10 border-t border-[color:var(--line)] bg-[color:var(--surface)] backdrop-blur-md">
@@ -89,7 +73,7 @@ export default function Footer() {
               <a href="#top" aria-label="Back to top" className="block w-fit">
                 <div className={logoClass}>
                   <Image
-                    src={bannerSrc}
+                    src="/BuildAtlas-BannerDark.png"
                     alt="BuildAtlas"
                     fill
                     sizes="224px"

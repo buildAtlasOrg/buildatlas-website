@@ -8,7 +8,7 @@ import { SectionDivider, SectionIntro, SectionShell } from "./Section";
 const steps = [
   {
     title: "Connect Your Repository",
-    body: "Link your GitHub, GitLab, or Bitbucket repo in one click. BuildAtlas plugs into the tools your team already uses.",
+    body: "Link your GitHub repository in one click. BuildAtlas reads your Actions workflows and starts mapping pipeline runs immediately.",
     action: "Connect repo",
     preview: "repo",
   },
@@ -45,8 +45,7 @@ function RepoPreview() {
     <div className="mx-auto w-full max-w-[15rem]">
       <div className={`mx-auto flex w-fit flex-wrap items-center justify-center gap-2 px-3 py-2 ${miniPanelClass}`}>
         <span className={miniBadgeClass}>GitHub</span>
-        <span className={miniBadgeClass}>GitLab</span>
-        <span className={miniBadgeClass}>Bitbucket</span>
+        <span className={miniBadgeClass}>GitHub Actions</span>
       </div>
 
       <div className={`mt-4 p-4 ${miniPanelClass}`}>
@@ -81,9 +80,9 @@ function ImportPreview() {
 
         <div className="mt-3 space-y-2">
           {[
-            [".github/workflows/build.yml", "GitHub"],
-            ["pipeline.yml", "Buildkite"],
-            [".gitlab-ci.yml", "GitLab"],
+            [".github/workflows/ci.yml", "Actions"],
+            [".github/workflows/deploy.yml", "Actions"],
+            [".github/workflows/release.yml", "Actions"],
           ].map(([name, label]) => (
             <div
               key={name}

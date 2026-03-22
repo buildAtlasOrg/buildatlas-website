@@ -83,7 +83,7 @@ function CapabilityVisual({ type }: { type: CapabilityType }) {
 
   if (type === "trace") {
     return (
-      <div className="rounded-[28px] border border-[color:var(--line)] bg-white/74 p-5">
+      <div className="rounded-[28px] border border-[color:var(--line)] bg-[color:var(--surface-soft)] p-5">
         <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]">
           <Route className="h-3.5 w-3.5 text-[color:var(--signal)]" />
           dependency trail
@@ -94,7 +94,7 @@ function CapabilityVisual({ type }: { type: CapabilityType }) {
             ["auth contract", "mismatch found"],
             ["integration run", "stopped here"],
           ].map(([title, state]) => (
-            <div key={title} className="rounded-[20px] border border-[color:var(--line)] bg-white px-4 py-4">
+            <div key={title} className="rounded-[20px] border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-4 py-4">
               <p className="text-sm font-semibold tracking-[-0.02em] text-[color:var(--ink)]">{title}</p>
               <p className="mt-2 text-sm leading-6 text-[color:var(--ink-soft)]">{state}</p>
             </div>
@@ -110,7 +110,7 @@ function CapabilityVisual({ type }: { type: CapabilityType }) {
   }
 
   return (
-    <div className="rounded-[28px] border border-[color:var(--line)] bg-white/74 p-5">
+    <div className="rounded-[28px] border border-[color:var(--line)] bg-[color:var(--surface-soft)] p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]">
           <FileText className="h-3.5 w-3.5 text-[color:var(--ember)]" />
@@ -120,7 +120,7 @@ function CapabilityVisual({ type }: { type: CapabilityType }) {
           shareable
         </span>
       </div>
-      <div className="mt-5 rounded-[22px] border border-[color:var(--line)] bg-[color:var(--paper)] px-5 py-5">
+      <div className="mt-5 rounded-[22px] border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-5 py-5">
         <p className="text-lg font-semibold tracking-[-0.03em] text-[color:var(--ink)]">
           Contract drift blocked staging promotion after lint and install completed.
         </p>
@@ -131,7 +131,7 @@ function CapabilityVisual({ type }: { type: CapabilityType }) {
           {["branch main", "owner release", "impact staging + package"].map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-[color:var(--line)] bg-white px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]"
+              className="rounded-full border border-[color:var(--line)] bg-[color:var(--surface-soft)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]"
             >
               {tag}
             </span>
