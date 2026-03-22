@@ -53,31 +53,13 @@ export default function Founder() {
               </div>
             </div>
 
-            <div className="space-y-2.5">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]">
-                  School
-                </span>
-                <span className="text-sm text-[color:var(--ink)]">
-                  Carleton University — Computer Science, AI/ML Focus
-                </span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]">
-                  Award
-                </span>
-                <span className="text-sm text-[color:var(--ink)]">
-                  CUHacking 2025 — 2nd Place Overall
-                </span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--ink-soft)]">
-                  Seeking
-                </span>
-                <span className="text-sm text-[color:var(--ink)]">
-                  Summer 2026 internship — Software Engineering / DevTools
-                </span>
-              </div>
+            <div>
+              <p className="text-sm text-[color:var(--ink-soft)]">
+                Carleton University — Computer Science, AI/ML Focus
+              </p>
+              <p className="mt-2 text-sm leading-7 text-[color:var(--ink-soft)]">
+                Building developer tools that make complex systems easier to understand. Previously placed 2nd at CUHacking 2025.
+              </p>
             </div>
 
             <blockquote className="rounded-[1rem] border-l-2 border-[color:var(--signal)] bg-[color:var(--surface-soft)] py-3 pl-4 pr-3">
