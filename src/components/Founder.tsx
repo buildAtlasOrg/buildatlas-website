@@ -58,7 +58,7 @@ export default function Founder() {
                 Carleton University — Computer Science, AI/ML Focus
               </p>
               <p className="mt-2 text-sm leading-7 text-[color:var(--ink-soft)]">
-                Building developer tools that make complex systems easier to understand. Previously placed 2nd at CUHacking 2025.
+                Building developer tools that make complex systems easier to understand.
               </p>
             </div>
 
