@@ -1,16 +1,15 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import BorderGlow from "./BorderGlow";
 import PillButton from "./PillButton";
-import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { label: "Product", href: "#product" },
-  { label: "Demo", href: "#graph-preview" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Waitlist", href: "#waitlist" },
 ];
@@ -40,31 +39,6 @@ function HeaderButtonGlow({ children }: { children: ReactNode }) {
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const bannerSrc = isDarkMode ? "/BuildAtlas-BannerDark.png" : "/BuildAtlas-Banner.png";
-  const desktopLogoClass = "relative h-[2.9rem] w-[11.25rem] sm:h-[3.1rem] sm:w-[12.25rem]";
-  const mobileLogoClass = "relative h-[2.6rem] w-[10.25rem]";
-  const bannerImageClass = "object-contain object-left";
-
-  useEffect(() => {
-    const root = document.documentElement;
-    const syncTheme = () => setIsDarkMode(root.classList.contains("dark"));
-
-    syncTheme();
-
-    const observer = new MutationObserver(syncTheme);
-    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
-
-    return () => observer.disconnect();
-  }, []);
-
-  function toggleTheme() {
-    const nextDark = !isDarkMode;
-    setIsDarkMode(nextDark);
-    document.documentElement.classList.toggle("dark", nextDark);
-    document.documentElement.style.colorScheme = nextDark ? "dark" : "light";
-    localStorage.setItem("theme", nextDark ? "dark" : "light");
-  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--line)] bg-[color:var(--surface)] backdrop-blur-md">
@@ -77,13 +51,13 @@ export default function Navbar() {
         <div className="hidden items-center justify-between gap-6 py-4 lg:flex">
           <div className="flex min-w-0 items-center">
             <a href="#top" aria-label="Back to top" className="block">
-              <div className={desktopLogoClass}>
+              <div className="relative h-[2.9rem] w-[11.25rem] sm:h-[3.1rem] sm:w-[12.25rem]">
                 <Image
-                  src={bannerSrc}
+                  src="/BuildAtlas-BannerDark.png"
                   alt="BuildAtlas"
                   fill
                   sizes="224px"
-                  className={bannerImageClass}
+                  className="object-contain object-left"
                   priority
                 />
               </div>
@@ -101,9 +75,9 @@ export default function Navbar() {
                   </li>
                 ))}
                 <li className={desktopActionItemClass}>
-                  <button type="button" onClick={toggleTheme} className={desktopActionClass}>
-                    {isDarkMode ? "Light mode" : "Dark mode"}
-                  </button>
+                  <Link href="/demo" className={desktopActionClass}>
+                    Live Demo
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -117,30 +91,19 @@ export default function Navbar() {
             className="block"
             onClick={() => setMenuOpen(false)}
           >
-            <div className={mobileLogoClass}>
+            <div className="relative h-[2.6rem] w-[10.25rem]">
               <Image
-                src={bannerSrc}
+                src="/BuildAtlas-BannerDark.png"
                 alt="BuildAtlas"
                 fill
                 sizes="168px"
-                className={bannerImageClass}
+                className="object-contain object-left"
                 priority
               />
             </div>
           </a>
 
           <div className="flex items-center gap-2">
-            <HeaderButtonGlow>
-              <ThemeToggle
-                size="sm"
-                baseColor="var(--chrome)"
-                pillColor="var(--surface-strong)"
-                hoveredPillColor="var(--chrome)"
-                hoveredPillTextColor="var(--paper)"
-                pillTextColor="var(--ink)"
-              />
-            </HeaderButtonGlow>
-
             <HeaderButtonGlow>
               <button
                 type="button"
@@ -186,6 +149,22 @@ export default function Navbar() {
                       </HeaderButtonGlow>
                     </li>
                   ))}
+                  <li>
+                    <HeaderButtonGlow>
+                      <PillButton
+                        label="Live Demo"
+                        href="/demo"
+                        size="sm"
+                        fullWidth
+                        baseColor="var(--chrome)"
+                        pillColor="var(--surface-strong)"
+                        hoveredPillColor="var(--chrome)"
+                        hoveredPillTextColor="var(--paper)"
+                        pillTextColor="var(--ink)"
+                        onClick={() => setMenuOpen(false)}
+                      />
+                    </HeaderButtonGlow>
+                  </li>
                 </ul>
               </nav>
             </motion.div>
