@@ -20,47 +20,6 @@ Built with Next.js 15, deployed on Netlify, and optimized for fast static delive
 
 ---
 
-## Getting started
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run start
-```
-
----
-
-## Environment variables
-
-The site runs without any env vars for local UI work. Set these for full functionality:
-
-```bash
-# Canonical URL for metadata and OpenGraph (recommended for production)
-NEXT_PUBLIC_SITE_URL=https://buildatlas.io
-
-# Override the waitlist POST target (useful when running outside Netlify)
-NEXT_PUBLIC_WAITLIST_ENDPOINT=/.netlify/functions/waitlist
-
-# Netlify function — Supabase connection
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
-
-# Netlify function — email notifications (both required for notifications to send)
-RESEND_API_KEY=
-RESEND_FROM_EMAIL=
-WAITLIST_NOTIFY_TO=
-```
-
----
-
 ## Project structure
 
 ```
