@@ -1,124 +1,157 @@
-# BuildAtlas Website
+# BuildAtlas — Marketing Site
 
-Marketing site for BuildAtlas, a CI/CD pipeline visualization product. The site is built with Next.js App Router, exported as a static site, and includes a waitlist form backed by a Netlify function.
+The public-facing website for [BuildAtlas](https://buildatlas.io) — a developer tool that transforms GitHub Actions failures into interactive visual pipeline maps.
 
-## What is in the site
+Built with Next.js 15, deployed on Netlify, and optimized for fast static delivery.
 
-- Responsive landing page with animated hero, product preview, pipeline graph, and footer
-- Light and dark mode with persisted theme preference
-- Interactive product preview with Graph, Timeline, and Summary tabs
-- Demo pipeline visualization built with `@xyflow/react`
-- Background galaxy effect built with OGL
-- Waitlist signup flow that stores emails via a Netlify function
+---
 
 ## Stack
 
-- Next.js 15
-- React 18
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- GSAP
-- `@xyflow/react`
-- OGL
-- Netlify Functions
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router, static export) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + CSS custom properties |
+| Animation | Framer Motion, OGL (WebGL galaxy) |
+| Pipeline demo | `@xyflow/react` |
+| Deployment | Netlify (static + Functions) |
+| Waitlist backend | Supabase + Resend |
 
-## Scripts
+---
+
+## Getting started
 
 ```bash
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
+
+# Build for production
 npm run build
+
+# Preview production build
 npm run start
 ```
 
+---
+
 ## Environment variables
 
-The site can run without extra env vars for basic UI work, but these are used by the app:
+The site runs without any env vars for local UI work. Set these for full functionality:
 
 ```bash
-# Used for metadataBase and canonical asset resolution
-NEXT_PUBLIC_SITE_URL=
+# Canonical URL for metadata and OpenGraph (recommended for production)
+NEXT_PUBLIC_SITE_URL=https://buildatlas.io
 
-# Optional override for the waitlist POST target in local/dev environments
-NEXT_PUBLIC_WAITLIST_ENDPOINT=
+# Override the waitlist POST target (useful when running outside Netlify)
+NEXT_PUBLIC_WAITLIST_ENDPOINT=/.netlify/functions/waitlist
 
-# Netlify waitlist function
+# Netlify function — Supabase connection
 SUPABASE_URL=
 SUPABASE_ANON_KEY=
-WAITLIST_NOTIFY_TO=
+
+# Netlify function — email notifications (both required for notifications to send)
 RESEND_API_KEY=
 RESEND_FROM_EMAIL=
+WAITLIST_NOTIFY_TO=
 ```
 
-Notes:
-
-- `NEXT_PUBLIC_SITE_URL` is preferred for production metadata.
-- If you are running the frontend outside Netlify function routing, set `NEXT_PUBLIC_WAITLIST_ENDPOINT`.
-- The waitlist notification email is skipped when `RESEND_API_KEY` or `RESEND_FROM_EMAIL` is missing.
-
-## Build and deployment
-
-This project is configured to export a static site:
-
-- `next.config.js` uses `output: "export"`
-- Netlify publishes the generated `out/` directory
-- Netlify functions live in `netlify/functions/`
-
-Netlify config:
-
-- Build command: `npm run build`
-- Publish directory: `out`
-- Functions directory: `netlify/functions`
+---
 
 ## Project structure
 
-```text
-src/
-  app/
-    globals.css        Global tokens and shared styles
-    layout.tsx         Root layout, metadata, theme bootstrapping
-    page.tsx           Page composition and section order
-  components/
-    Navbar.tsx         Header, navigation, theme toggle
-    Hero.tsx           Hero copy and waitlist card
-    ProductPreview.tsx Interactive tabbed product preview
-    PipelineGraph.tsx  Demo CI/CD graph section
-    HowItWorks.tsx     Four-step explainer section
-    WaitlistCard.tsx   Waitlist form UI
-    ThemeToggle.tsx    Theme persistence and toggle behavior
-    Galaxy.tsx         Background canvas effect
-    BorderGlow.tsx     Shared glow treatment
-netlify/
-  functions/
-    waitlist.mjs       Waitlist handler
-public/
-  BuildAtlas-Banner.png
-  BuildAtlas-BannerDark.png
-  other static assets
 ```
+src/
+├── app/
+│   ├── globals.css          Design tokens, shared utilities, scrollbar styles
+│   ├── layout.tsx           Root layout, fonts (IBM Plex Sans/Mono), metadata
+│   ├── page.tsx             Page composition — section order and imports
+│   └── demo/
+│       └── page.tsx         Interactive pipeline demo page
+├── components/
+│   ├── Navbar.tsx           Fixed header, primary navigation
+│   ├── Hero.tsx             Hero headline, CTAs, stats bar, waitlist card
+│   ├── ProductPreview.tsx   SVG browser-chrome app mockup
+│   ├── Problem.tsx          Pain point cards (3-up grid)
+│   ├── Features.tsx         Capability deep-dives (alternating rows)
+│   ├── HowItWorks.tsx       Four-step explainer with mini previews
+│   ├── Founder.tsx          Founder profile and contact links
+│   ├── WaitlistCard.tsx     Email signup form with success/error states
+│   ├── PipelineGraph.tsx    Landing page pipeline graph (@xyflow/react)
+│   ├── BorderGlow.tsx       Proximity-glow border effect
+│   ├── PillButton.tsx       Shared pill-style button
+│   ├── Section.tsx          SectionShell, SectionIntro, SectionDivider helpers
+│   ├── ThemedGalaxyBackdrop.tsx  Animated WebGL galaxy background
+│   └── demo/
+│       ├── DemoApp.tsx      Full-screen interactive demo application
+│       ├── PipelineFlow.tsx Custom SVG DAG pipeline renderer (no reactflow)
+│       └── mockData.ts      Static pipeline run fixture data
+netlify/
+└── functions/
+    └── waitlist.mjs         Waitlist handler — validates, inserts, notifies
+public/
+├── BuildAtlas-BannerDark.png
+├── BuildAtlas-Full.png
+└── BuildAtlas-Logo.png
+```
+
+---
+
+## Deployment
+
+The site exports as a fully static build:
+
+- `next.config.js` sets `output: "export"` — all pages pre-rendered at build time
+- Netlify publishes the `out/` directory
+- Netlify Functions handle the waitlist POST at `/.netlify/functions/waitlist`
+
+**Netlify settings:**
+
+| Setting | Value |
+|---|---|
+| Build command | `npm run build` |
+| Publish directory | `out` |
+| Functions directory | `netlify/functions` |
+
+---
 
 ## Waitlist flow
 
-The waitlist form posts JSON to the configured endpoint with this shape:
+The signup form posts to the configured endpoint:
 
 ```json
-{
-  "email": "you@example.com"
-}
+POST /.netlify/functions/waitlist
+Content-Type: application/json
+
+{ "email": "you@company.com" }
 ```
 
-The Netlify function:
+The function:
+1. Validates the email format
+2. Upserts into Supabase (duplicate signups return success)
+3. Sends a notification email via Resend (skipped if `RESEND_API_KEY` is absent)
 
-- validates the email
-- inserts it into Supabase
-- treats duplicate signups as a successful response
-- optionally sends a notification email via Resend
+---
 
-## Current status
+## Design system
 
-The site builds successfully with:
+All visual tokens are defined as CSS custom properties in `globals.css` under `:root.dark`. The site is **dark-only** — no light mode toggle. Key tokens:
 
-```bash
-npm run build
-```
+| Token | Value | Use |
+|---|---|---|
+| `--signal` | `#8a76ff` | Primary accent (purple) |
+| `--ink` | `#edf2ff` | Primary text |
+| `--ink-soft` | `#aab5d2` | Secondary text |
+| `--surface` | `rgba(14,20,38,0.9)` | Card backgrounds |
+| `--line` | `rgba(124,143,184,0.28)` | Borders and dividers |
+
+Tailwind dark mode is **not** used — all theming is done via CSS variables.
+
+---
+
+## License
+
+Copyright © 2025 BuildAtlas. All rights reserved.
