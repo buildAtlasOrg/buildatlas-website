@@ -59,37 +59,35 @@ function FooterLink({ label, href }: FooterLinkProps) {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const logoClass = "relative h-[2.9rem] w-[11.25rem] sm:h-[3.1rem] sm:w-[12.25rem]";
-  const footerBlurb =
-    "BuildAtlas helps engineering teams visualize GitHub Actions pipelines, trace failures faster, and debug complex builds in seconds.";
-
 
   return (
-    <footer className="mt-10 border-t border-[color:var(--line)] bg-[color:var(--surface)] backdrop-blur-md">
+    <footer className="border-t border-[color:var(--line)]">
       <div className="shell">
-        <div className="py-8 sm:py-10">
-          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:items-start lg:gap-12">
-            <div className="flex max-w-sm flex-col gap-4">
+        <div className="py-10 sm:py-12">
+          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:items-start lg:gap-16">
+            {/* Brand */}
+            <div className="flex flex-col gap-4">
               <a href="#top" aria-label="Back to top" className="block w-fit">
-                <div className={logoClass}>
+                <div className="relative h-[2.4rem] w-[9.75rem]">
                   <Image
                     src="/BuildAtlas-BannerDark.png"
                     alt="BuildAtlas"
                     fill
-                    sizes="224px"
+                    sizes="160px"
                     className="object-contain object-left"
                   />
                 </div>
               </a>
-
-              <p className="text-sm leading-7 text-[color:var(--ink-soft)]">{footerBlurb}</p>
-
-              <p className="text-sm text-[color:var(--ink-soft)]">
-                &copy; Copyright {currentYear}. All Rights Reserved.
+              <p className="max-w-[30ch] text-sm leading-[1.8] text-[color:var(--ink-soft)]">
+                BuildAtlas helps engineering teams visualize GitHub Actions pipelines, trace failures faster, and debug complex builds in seconds.
+              </p>
+              <p className="text-xs text-[color:var(--ink-soft)]/60">
+                &copy; {currentYear} BuildAtlas. All rights reserved.
               </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-3 sm:gap-x-8 lg:ml-auto lg:w-fit lg:gap-x-10">
+            {/* Links */}
+            <div className="grid gap-8 sm:grid-cols-3 lg:ml-auto lg:w-fit lg:gap-12">
               {footerSections.map((section) => (
                 <div key={section.title} className="lg:text-right">
                   <p className="detail-label">{section.title}</p>

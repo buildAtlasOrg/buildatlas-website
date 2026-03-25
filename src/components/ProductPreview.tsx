@@ -1,5 +1,4 @@
 import { SectionDivider, SectionIntro, SectionShell } from "./Section";
-import BorderGlow from "./BorderGlow";
 
 export default function ProductPreview() {
   return (
@@ -13,13 +12,7 @@ export default function ProductPreview() {
       />
 
       <div className="mt-10">
-        <BorderGlow
-          className="rounded-[2rem]"
-          backgroundColor="var(--panel)"
-          borderRadius={32}
-          fillOpacity={0.14}
-        >
-          <div className="overflow-hidden rounded-[2rem] border border-[color:var(--line)] shadow-[0_32px_80px_rgba(2,6,23,0.6)]">
+          <div className="overflow-hidden rounded-2xl border border-[color:var(--line)]">
             <svg
               width="100%"
               viewBox="0 0 940 500"
@@ -206,7 +199,6 @@ export default function ProductPreview() {
               <rect width="940" height="500" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
             </svg>
           </div>
-        </BorderGlow>
 
         {/* Caption row */}
         <div className="mt-4 flex flex-wrap items-center justify-between gap-4 px-2">

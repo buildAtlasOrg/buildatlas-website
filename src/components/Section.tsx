@@ -19,7 +19,7 @@ type SectionIntroProps = {
 
 export function SectionShell({ id, className, children }: SectionShellProps) {
   return (
-    <section id={id} className={`relative py-14 sm:py-16 lg:py-20 ${className ?? ""}`}>
+    <section id={id} className={`relative py-20 sm:py-28 lg:py-36 ${className ?? ""}`}>
       <div className="shell">{children}</div>
     </section>
   );
@@ -53,5 +53,5 @@ export function SectionIntro({
 }
 
 export function SectionDivider() {
-  return <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[color:var(--line)]/70" />;
+  return <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[color:var(--line)]" />;
 }

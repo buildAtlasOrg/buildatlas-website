@@ -33,23 +33,28 @@ export default function Problem() {
         className="max-w-3xl"
       />
 
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-14 divide-y divide-[color:var(--line)]">
         {pains.map((item, i) => (
           <motion.div
             key={item.number}
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: 0.45, delay: i * 0.09 }}
-            className="rounded-[1.75rem] border border-[color:var(--line)] bg-[color:var(--surface)] px-7 py-7 backdrop-blur-md"
+            transition={{ duration: 0.45, delay: i * 0.08 }}
+            className="grid gap-6 py-10 sm:grid-cols-[5rem_1fr] sm:gap-12 lg:grid-cols-[7rem_1fr_minmax(0,36rem)]"
           >
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[color:var(--signal)]">
+            {/* Number */}
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[color:var(--signal)] sm:pt-0.5">
               {item.number}
             </p>
-            <h3 className="mt-4 text-[1.15rem] font-semibold tracking-[-0.035em] text-[color:var(--ink)]">
+
+            {/* Title */}
+            <h3 className="text-[1.2rem] font-semibold tracking-[-0.035em] text-[color:var(--ink)] sm:pt-0 lg:pt-0.5">
               {item.title}
             </h3>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--ink-soft)]">
+
+            {/* Body */}
+            <p className="text-sm leading-[1.85] text-[color:var(--ink-soft)] sm:col-start-2 lg:col-start-auto">
               {item.body}
             </p>
           </motion.div>

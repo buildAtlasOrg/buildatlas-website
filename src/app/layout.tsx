@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "@xyflow/react/dist/style.css";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import CustomCursor from "@/components/CustomCursor";
 
 const sans = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -45,7 +46,10 @@ export default function RootLayout({
       lang="en"
       className={cn(sans.variable, mono.variable, "dark font-sans")}
     >
-      <body className="min-h-screen font-sans">{children}</body>
+      <body className="min-h-screen font-sans">
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

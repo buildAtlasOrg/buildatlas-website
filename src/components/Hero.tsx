@@ -1,102 +1,132 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import WaitlistCard from "./WaitlistCard";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 
-const stats = [
-  { value: "< 30s", label: "to find root cause" },
-  { value: "GitHub Actions", label: "native support" },
-  { value: "Free", label: "during early access" },
-];
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Animated counter for stats
+function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = value / 40;
+    const id = setInterval(() => {
+      start += step;
+      if (start >= value) { setDisplay(value); clearInterval(id); }
+      else setDisplay(Math.floor(start));
+    }, 18);
+    return () => clearInterval(id);
+  }, [inView, value]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
+}
+
+// Reveal one line from below (overflow-hidden wrapper + translate Y)
+function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <div className="overflow-hidden">
+      <motion.div
+        initial={{ y: "110%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 0.9, delay, ease: EASE }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
-    <section className="relative pt-24 sm:pt-28 lg:pt-32">
+    <section className="relative flex min-h-[92vh] flex-col justify-center pt-24 pb-16 sm:pt-28">
       <div className="shell">
-        <div className="relative z-10 grid gap-12 pt-4 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)] lg:items-start lg:gap-16">
-          <div className="max-w-3xl">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="eyebrow"
-            >
-              Early access — now open
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.06 }}
-              className="hero-heading mt-5"
-            >
-              Stop reading logs.{" "}
-              <span className="text-[color:var(--signal)]">
-                Start reading maps.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.14 }}
-              className="mt-6 max-w-[52ch] text-[1.1rem] leading-8 text-[color:var(--ink-soft)]"
-            >
-              BuildAtlas transforms GitHub Actions failures into interactive
-              visual pipeline maps — so your team finds the root cause in
-              seconds, not hours.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
-            >
-              <Link
-                href="/demo"
-                className="button-primary rounded-full px-7 py-3.5 text-[0.95rem] font-semibold"
-              >
-                Try Live Demo →
-              </Link>
-              <a
-                href="#waitlist"
-                className="button-secondary rounded-full px-7 py-3.5 text-[0.95rem] font-semibold"
-              >
-                Join Early Access
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.38 }}
-              className="mt-12 flex flex-wrap items-center gap-8 border-t border-[color:var(--line)] pt-8"
-            >
-              {stats.map(({ value, label }) => (
-                <div key={value}>
-                  <p className="text-[1.4rem] font-semibold tracking-[-0.04em] text-[color:var(--signal)]">
-                    {value}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[color:var(--ink-soft)]">
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          <motion.div
-            id="waitlist"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18 }}
-            className="w-full max-w-md lg:justify-self-end lg:pt-2"
+        {/* Eyebrow */}
+        <div className="overflow-hidden">
+          <motion.p
+            initial={{ y: "100%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 0.6, ease: EASE }}
+            className="eyebrow"
           >
-            <WaitlistCard />
-          </motion.div>
+            Early access — now open
+          </motion.p>
         </div>
+
+        {/* Main heading — each line reveals independently */}
+        <h1 className="mt-6 text-[clamp(3.6rem,9vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.055em] text-[color:var(--ink)]">
+          <RevealLine delay={0.08}>Stop reading logs.</RevealLine>
+          <RevealLine delay={0.16}>
+            <span className="text-[color:var(--signal)]">Start reading maps.</span>
+          </RevealLine>
+        </h1>
+
+        {/* Subtitle */}
+        <div className="overflow-hidden mt-8">
+          <motion.p
+            initial={{ y: "100%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+            className="max-w-[52ch] text-[1.1rem] leading-[1.85] text-[color:var(--ink-soft)]"
+          >
+            BuildAtlas transforms GitHub Actions failures into interactive
+            visual pipeline maps — so your team finds the root cause in
+            seconds, not hours.
+          </motion.p>
+        </div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.44, ease: EASE }}
+          className="mt-10 flex flex-wrap items-center gap-4"
+        >
+          <Link
+            href="/demo"
+            className="inline-flex items-center gap-2 bg-[color:var(--signal)] px-7 py-3.5 text-[0.9rem] font-semibold text-white transition-opacity hover:opacity-80"
+          >
+            Try Live Demo →
+          </Link>
+          <a
+            href="#waitlist"
+            className="inline-flex items-center gap-2 border border-[color:var(--line-strong)] px-7 py-3.5 text-[0.9rem] font-semibold text-[color:var(--ink)] transition-colors hover:border-[color:var(--signal)] hover:text-[color:var(--signal)]"
+          >
+            Join Early Access
+          </a>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.56 }}
+          className="mt-16 flex flex-wrap items-start gap-x-14 gap-y-6 border-t border-[color:var(--line)] pt-10"
+        >
+          <div>
+            <p className="text-[1.3rem] font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
+              &lt;&nbsp;<Counter value={30} suffix="s" />
+            </p>
+            <p className="mt-1 text-xs tracking-wide text-[color:var(--ink-soft)]">to find root cause</p>
+          </div>
+          <div>
+            <p className="text-[1.3rem] font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
+              GitHub Actions
+            </p>
+            <p className="mt-1 text-xs tracking-wide text-[color:var(--ink-soft)]">native support</p>
+          </div>
+          <div>
+            <p className="text-[1.3rem] font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
+              Free
+            </p>
+            <p className="mt-1 text-xs tracking-wide text-[color:var(--ink-soft)]">during early access</p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
