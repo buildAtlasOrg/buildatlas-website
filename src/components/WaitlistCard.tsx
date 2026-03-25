@@ -8,7 +8,7 @@ type WaitlistCardProps = {
 };
 
 const WAITLIST_ENDPOINT =
-  process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT ?? "/.netlify/functions/waitlist";
+  process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT ?? "";
 
 export default function WaitlistCard({ className = "" }: WaitlistCardProps) {
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export default function WaitlistCard({ className = "" }: WaitlistCardProps) {
       if (!response.ok) {
         if (response.status === 404) {
           throw new Error(
-            "Waitlist backend not found. If you're testing locally, set NEXT_PUBLIC_WAITLIST_ENDPOINT or run the site with Netlify functions.",
+            "Waitlist backend not configured. Set the NEXT_PUBLIC_WAITLIST_ENDPOINT environment variable.",
           );
         }
         throw new Error(
